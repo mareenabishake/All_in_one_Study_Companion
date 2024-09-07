@@ -11,7 +11,7 @@ namespace All_in_one_Study_Companion.Helpers
 
         public DbHelper()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
         }
 
         public SqlConnection GetConnection()

@@ -18,8 +18,27 @@ namespace All_in_one_Study_Companion.Pages.Account
 
         }
 
+
+        // Add this method to the class
+        private string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(hashedBytes);
+            }
+        }
+
+        // Add this method to the class
+        private void ShowMessageBox(string message)
+        {
+            string script = $"alert('{message.Replace("'", "\\'")}');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
+        }
+
         protected void btnSignUp_Click(object sender, EventArgs e)
         {
+            
             // Get user input from form fields
             string fullName = txtFullName.Text;
             string institution = txtInstitution.Text;
@@ -32,13 +51,16 @@ namespace All_in_one_Study_Companion.Pages.Account
             // Perform validation
             if (password != confirmPassword)
             {
-                // Display error message: Passwords do not match
+                ShowMessageBox("Passwords do not match");
                 return;
             }
 
+            // Hash the password
+            string hashedPassword = HashPassword(password);
+
             // Insert user into database
-            string query = @"INSERT INTO Users (FullName, Institution, AcademicLevel, Username, Email, Password) 
-                             VALUES (@FullName, @Institution, @AcademicLevel, @Username, @Email, @Password)";
+            string query = @"INSERT INTO Users (FullName, Institution, AcademicLevel, Username, Email, PasswordHash) 
+                             VALUES (@FullName, @Institution, @AcademicLevel, @Username, @Email, @PasswordHash)";
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@FullName", fullName),
@@ -46,7 +68,7 @@ namespace All_in_one_Study_Companion.Pages.Account
                 new SqlParameter("@AcademicLevel", academicLevel),
                 new SqlParameter("@Username", username),
                 new SqlParameter("@Email", email),
-                new SqlParameter("@Password", password) // Consider hashing the password before storing
+                new SqlParameter("@PasswordHash", hashedPassword)
             };
 
             try
@@ -55,19 +77,25 @@ namespace All_in_one_Study_Companion.Pages.Account
                 if (rowsAffected > 0)
                 {
                     // Registration successful
+                    ShowMessageBox("Registration successful! You can now log in.");
                     Response.Redirect("~/Pages/Account/LandIn.aspx");
                 }
                 else
                 {
                     // Registration failed
-                    // Display error message to user
+                    ShowMessageBox("Registration failed. Please try again.");
                 }
             }
             catch (Exception ex)
             {
                 // Handle exception
-                // Display error message to user
+                ShowMessageBox("An error occurred: " + ex.Message);
             }
+        }
+
+        protected void txtConfirmPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

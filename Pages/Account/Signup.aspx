@@ -69,10 +69,10 @@
                 </div>
                 <div class="form-group half-width">
                     <asp:Label runat="server" AssociatedControlID="txtConfirmPassword">Confirm Password</asp:Label>
-                    <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" required="required"></asp:TextBox>
+                    <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" required="required" OnTextChanged="txtConfirmPassword_TextChanged"></asp:TextBox>
                 </div>
             </div>
-            <asp:Button ID="btnSignUp" runat="server" Text="Sign Up" CssClass="btn" OnClick="btnSignUp_Click" />
+            <asp:Button ID="signUpbtn" runat="server" Text="Sign Up" CssClass="btn" OnClick="btnSignUp_Click" />
             <p>Already have an account? <a href="/index">Log In</a></p>
         </form>
     </div>

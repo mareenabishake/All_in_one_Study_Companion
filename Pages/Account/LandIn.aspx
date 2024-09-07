@@ -34,16 +34,15 @@
             <p>Your personalized learning platform with AI scheduling, gamification, and peer collaboration.</p>
 
             <!-- Updated Login Form -->
-            <form asp-action="Login" method="post">
+            <form id="loginForm" runat="server">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="Username" placeholder="Username" />
+                    <asp:TextBox ID="Username" runat="server" CssClass="form-control" placeholder="Username"></asp:TextBox>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" asp-for="Password" placeholder="Password" />
+                    <asp:TextBox ID="Password" runat="server" TextMode="Password" CssClass="form-control" placeholder="Password"></asp:TextBox>
                 </div>
-                <button type="submit" class="btn">Log In</button>
+                <asp:Button ID="btnLogin" runat="server" Text="Log In" CssClass="btn" OnClick="btnLogin_Click" />
             </form>
-
             <div class="signup-text">
                 <span>Please <a href="/Signup">Sign up</a> if you don't have an account.</span>
                 <a href="Signup.aspx" class="btn signup-btn">Sign Up</a>
