@@ -1,0 +1,53 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('/img/landinbg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.dashboard-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10%;
+}
+
+.dashboard-item {
+    flex: 1 1 calc(33.333% - 20px);
+    margin: 10px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+    .dashboard-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+.dashboard-link {
+    text-decoration: none;
+    color: #333;
+}
+
+    .dashboard-link img {
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-link span {
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+        color: #007BFF;
+    }
+
+        .dashboard-link span:hover {
+            color: #0056b3;
+        }

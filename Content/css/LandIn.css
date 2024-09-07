@@ -1,0 +1,334 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('../img/landinbg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding-top: 80px;
+}
+
+header {
+    background: rgba(34, 34, 34, 0.8);
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    header .logo {
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    header nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+            header nav ul li a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 18px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                transition: color 0.3s ease;
+            }
+
+                header nav ul li a:hover {
+                    color: #ffcc00;
+                }
+
+#hero {
+    background: rgba(244, 244, 244, 0.8);
+    padding: 20px;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 60px;
+}
+
+    #hero .container {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    #hero h1 {
+        font-size: 48px;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    #hero p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 60%;
+    margin-left: auto; /* Center the form */
+    margin-right: auto; /* Center the form */
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px; /* Slightly increased for better spacing */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+
+
+#hero .btn {
+    padding: 10px 20px;
+    margin: 10px 0;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+    #hero .btn:hover {
+        background: linear-gradient(45deg, #20c997, #28a745);
+        transform: scale(1.05);
+    }
+
+.signup-text {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+    .signup-text span {
+        margin-right: 10px;
+    }
+
+    .signup-text a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+.signup-btn {
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+    background-color: #45a049;
+}
+
+.hero-image {
+    display: none;
+}
+
+#features, #how-it-works, #testimonials, footer {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+    #features.visible, #how-it-works.visible, #testimonials.visible, footer.visible {
+        opacity: 1;
+    }
+
+#features {
+    padding: 60px 20px; /* Increase padding for better spacing */
+    background: rgba(255, 255, 255, 0.6);
+}
+
+    #features .container {
+        max-width: 1200px; /* Increase max-width for better layout */
+        margin: auto;
+        text-align: center;
+    }
+
+    #features h2 {
+        font-size: 32px; /* Increase font size for heading */
+        margin-bottom: 40px; /* Increase margin for better spacing */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+.features-container {
+    display: flex;
+    justify-content: space-around; /* Evenly space out the features */
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.feature {
+    text-align: center;
+    flex: 1;
+    margin: 0 10px; /* Adjust margin for spacing */
+    background: rgba(255, 255, 255, 0.8); /* White background */
+    padding: 20px; /* Add padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+    .feature img {
+        width: auto; /* Maintain aspect ratio */
+        height: 150px; /* Set height */
+        margin-bottom: 20px; /* Add bottom margin */
+    }
+
+
+#aiScheduling {
+    width: auto;
+    height: 150px;
+}
+
+#gamifiedLearning {
+    width: auto;
+    height: 200px;
+}
+
+.feature h3 {
+    font-size: 22px; /* Increase font size */
+    margin: 15px 0; /* Adjust margin */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.feature p {
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#how-it-works {
+    padding: 40px 20px;
+    background: rgba(244, 244, 244, 0.6);
+}
+
+    #how-it-works .container {
+        max-width: 800px;
+        margin: auto;
+        text-align: center;
+    }
+
+    #how-it-works h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+}
+
+.step {
+    width: 22%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .step h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .step p {
+        font-size: 16px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+#testimonials {
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+    #testimonials .container {
+        max-width: 800px;
+        margin: auto;
+        text-align: center;
+    }
+
+    #testimonials h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+.testimonial {
+    background: rgba(244, 244, 244, 0.7);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+footer {
+    background: rgba(51, 51, 51, 0.6);
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+    footer .container {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    footer ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        footer ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+            footer ul li a {
+                color: #fff;
+                text-decoration: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }

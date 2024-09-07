@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="All_in_one_Study_Companion.MasterPages.Site" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>All in One Study Companion</title>
+    <link href="../Content/css/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Header Section -->
+        <header>
+            <div class="container">
+                <div class="logo">Study Companion</div>
+                <nav>
+                    <ul>
+                        <li><a href="../Account/Dashboard.aspx">Home</a></li>
+                        <li><a href="../Pages/WeeklySchedule.aspx">Weekly Schedule</a></li>
+                        <li><a href="../Pages/StudyTime.aspx">Study Time</a></li>
+                        <li><a href="../Pages/ExamMarks.aspx">Exam Marks</a></li>
+                        <li><a href="../Pages/QnA.aspx">Q&A</a></li>
+                        <li><a href="../Pages/SearchLeaderboards.aspx">Search & Leaderboards</a></li>
+                        <li><a href="../Account/Settings.aspx">Settings</a></li>
+                        <li><a href="../Account/Logout.aspx">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content Section -->
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <!-- Footer Section -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 All in One Study Companion. All rights reserved.</p>
+                <ul>
+                    <li><a href="#contact">Contact Information</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

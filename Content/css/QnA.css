@@ -1,0 +1,171 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('../img/landInBg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+/* Main Content Area */
+main {
+    padding: 3%; /* Adjusted padding to avoid overlap with header */
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 5%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+.ask-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+    .ask-question .form-group {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+        .ask-question .form-group label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .ask-question .form-group input,
+        .ask-question .form-group select,
+        .ask-question .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+            .ask-question .form-group input[type="file"] {
+                padding: 5px;
+            }
+
+    .ask-question button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+    }
+
+        .ask-question button:hover {
+            background-color: #0056b3;
+        }
+
+.qa-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.view-questions {
+    margin-bottom: 40px;
+}
+
+    .view-questions h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .view-questions .filters {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+        .view-questions .filters label {
+            margin-right: 10px;
+        }
+
+        .view-questions .filters select {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+    .view-questions ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .view-questions ul li {
+            padding: 10px;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+            .view-questions ul li h3 {
+                margin: 0 0 10px 0;
+                font-size: 18px;
+            }
+
+            .view-questions ul li p {
+                margin: 0;
+                font-size: 16px;
+                color: #555;
+            }
+
+            .view-questions ul li img.question-image {
+                max-width: 100%;
+                height: auto;
+                margin-top: 10px;
+                border-radius: 5px;
+            }
+
+            .view-questions ul li .answer-button {
+                padding: 5px 10px;
+                margin-top: 10px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .view-questions ul li .answer-button:hover {
+                    background-color: #218838;
+                }
+
+            .view-questions ul li .view-answer-button {
+                padding: 5px 10px;
+                margin-top: 10px;
+                background-color: #007BFF; /* Blue color for View Answer */
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease; /* Adding transition for hover effect */
+            }
+
+                .view-questions ul li .view-answer-button:hover {
+                    background-color: #0056b3; /* Darker blue for hover */
+                    transform: translateY(-2px); /* Slight lift effect on hover */
+                }
+
+/* Footer Styles */
+footer {
+    background: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure footer stays on top */
+}

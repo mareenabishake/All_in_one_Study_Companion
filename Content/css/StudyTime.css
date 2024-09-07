@@ -1,0 +1,164 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px; /* Increased base font size */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('../img/landInBg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+header {
+    background: rgba(34, 34, 34, 0.8);
+    color: #fff;
+    padding: 15px; /* Increased padding */
+    font-size: 20px; /* Increased font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    header .logo {
+        font-size: 28px; /* Increased font size */
+        font-weight: bold;
+    }
+
+    header nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+        header nav ul li {
+            margin-left: 20px;
+        }
+
+            header nav ul li a {
+                color: #fff;
+                text-decoration: none;
+                font-size: 18px; /* Increased font size */
+                transition: color 0.3s ease;
+            }
+
+                header nav ul li a:hover {
+                    color: #ffcc00;
+                }
+
+main {
+    padding: 150px 20px 20px; /* Reduced top padding by 10px to move content up */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 140px);
+}
+
+#currentTimeContainer {
+    display: flex;
+    font-size: 24px; /* Increased font size */
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+    #currentTimeContainer > div {
+        margin: 0 20px; /* Increased margin for spacing */
+    }
+
+.study-time-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+.timer-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(200, 200, 200, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.controls-container {
+    flex: 1;
+    padding: 20px;
+    text-align: left;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+    .input-container label {
+        margin-right: 10px;
+        font-size: 20px; /* Increased font size */
+    }
+
+    .input-container input {
+        width: 50px;
+        padding: 5px;
+        margin-right: 10px;
+        font-size: 20px; /* Increased font size */
+    }
+
+.dropdown-container {
+    margin-bottom: 20px;
+}
+
+    .dropdown-container label {
+        margin-right: 10px;
+        font-size: 20px; /* Increased font size */
+    }
+
+    .dropdown-container select {
+        padding: 5px;
+        font-size: 20px; /* Increased font size */
+    }
+
+#totalDuration {
+    margin-bottom: 20px;
+    font-size: 20px; /* Increased font size */
+}
+
+button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    font-size: 20px; /* Increased font size */
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
