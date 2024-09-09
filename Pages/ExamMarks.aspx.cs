@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Web.UI;
 
-namespace All_in_one_Study_Companion.Pages.Account
+namespace All_in_one_Study_Companion.Pages
 {
-    public partial class ExamMarks : Page
+    public partial class ExamMarks : System.Web.UI.Page
     {
-        
-        // Additional server-side methods can go here
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Your page load logic here
+        }
+
+        // Other methods and event handlers
     }
 }

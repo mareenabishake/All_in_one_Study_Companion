@@ -14,14 +14,10 @@
             <div class="logo">Study Companion</div>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li>
-                        <a href="/WeeklySchedule/WeeklySchedulePage">Weekly Schedule</a>
-                    </li>
-                    <li><a href="/StudyTime/StudyTimePage">Study Time</a></li>
-                    <li><a href="/Dashboard/DashboardPage">Dashboard</a></li>
-                    <li><a href="/QnA/QnAPage">Q&A</a></li>
-                    <li><a href="/SearchLeaderboards/SearchLeaderboardsPage">Search & Leaderboards</a></li>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="/Settings">Settings</a></li>
                 </ul>
             </nav>

@@ -8,52 +8,6 @@
     background-size: cover;
 }
 
-header {
-    background: rgba(34, 34, 34, 0.8);
-    color: #fff;
-    padding: 15px; /* Increased padding */
-    font-size: 20px; /* Increased font size */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-    header .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-    }
-
-    header .logo {
-        font-size: 28px; /* Increased font size */
-        font-weight: bold;
-    }
-
-    header nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-    }
-
-        header nav ul li {
-            margin-left: 20px;
-        }
-
-            header nav ul li a {
-                color: #fff;
-                text-decoration: none;
-                font-size: 18px; /* Increased font size */
-                transition: color 0.3s ease;
-            }
-
-                header nav ul li a:hover {
-                    color: #ffcc00;
-                }
-
 main {
     padding: 150px 20px 20px; /* Reduced top padding by 10px to move content up */
     display: flex;

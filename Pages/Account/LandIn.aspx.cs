@@ -24,7 +24,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             {
                 // Successful login
                 Session["Username"] = username;
-                Response.Redirect("~/Dashboard/DashboardPage.aspx");
+                Response.Redirect("~/Pages/Dashboard.aspx");
             }
             else
             {
