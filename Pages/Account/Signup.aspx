@@ -47,8 +47,6 @@
                         <asp:ListItem Value="olevel">O Level</asp:ListItem>
                         <asp:ListItem Value="alevel">A Level</asp:ListItem>
                         <asp:ListItem Value="undergraduate">Undergraduate</asp:ListItem>
-                        <asp:ListItem Value="postgraduate">Postgraduate</asp:ListItem>
-                        <asp:ListItem Value="doctoral">Doctoral</asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>

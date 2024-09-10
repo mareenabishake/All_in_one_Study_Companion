@@ -15,30 +15,57 @@ namespace All_in_one_Study_Companion.Pages
     {
 
         /// <summary>
-        /// form1 control.
+        /// SubjectName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox SubjectName;
 
         /// <summary>
-        /// SubjectMarksRepeater control.
+        /// CurrentMark control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater SubjectMarksRepeater;
+        protected global::System.Web.UI.WebControls.TextBox CurrentMark;
 
         /// <summary>
-        /// TargetMarksRepeater control.
+        /// TargetMark control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater TargetMarksRepeater;
+        protected global::System.Web.UI.WebControls.TextBox TargetMark;
+
+        /// <summary>
+        /// SaveMarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SaveMarks;
+
+        /// <summary>
+        /// ExamMarksGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ExamMarksGridView;
+
+        /// <summary>
+        /// NoDataLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NoDataLabel;
     }
 }

@@ -12,7 +12,10 @@ namespace All_in_one_Study_Companion.Pages.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Your existing code here
+            if (Session["UserID"] != null)
+            {
+                Response.Redirect("~/Pages/Dashboard.aspx");
+            }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -20,9 +23,10 @@ namespace All_in_one_Study_Companion.Pages.Account
             string username = Request.Form["Username"];
             string password = Request.Form["Password"];
 
-            if (ValidateUser(username, password))
+            if (ValidateUser(username, password, out int userId))
             {
                 // Successful login
+                Session["UserID"] = userId;
                 Session["Username"] = username;
                 Response.Redirect("~/Pages/Dashboard.aspx");
             }
@@ -33,11 +37,12 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
-        private bool ValidateUser(string username, string password)
+        private bool ValidateUser(string username, string password, out int userId)
         {
+            userId = 0;
             string hashedPassword = HashPassword(password);
             DbHelper dbHelper = new DbHelper();
-            string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
+            string query = "SELECT UserID FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@Username", username),
@@ -47,8 +52,12 @@ namespace All_in_one_Study_Companion.Pages.Account
             try
             {
                 DataTable result = dbHelper.ExecuteQuery(query, parameters);
-                int count = Convert.ToInt32(result.Rows[0][0]);
-                return count > 0;
+                if (result.Rows.Count > 0)
+                {
+                    userId = Convert.ToInt32(result.Rows[0]["UserID"]);
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {

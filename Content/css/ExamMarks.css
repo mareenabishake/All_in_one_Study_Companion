@@ -16,11 +16,7 @@ main {
     margin: auto;
 }
 
-.input-section {
-    margin-bottom: 30px;
-}
-
-.input-section, .charts-section {
+.input-section, .table-section, .charts-section {
     width: 100%;
     margin-bottom: 40px;
     background: rgba(255, 255, 255, 0.9);
@@ -29,67 +25,78 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-    .input-section h2, .charts-section h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-
-.subject-marks-container, .charts-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+h2, h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
-.subject-marks-container, #targetMarksContainer {
-    overflow-x: auto;
+.form-group {
+    margin-bottom: 15px;
 }
 
-table {
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th, td {
+.table th, .table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
 
-th {
+.table th {
     background-color: #f2f2f2;
+    font-weight: bold;
 }
 
-input[type="text"], input[type="number"] {
-    width: 90%;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-.form-control {
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-button {
-    padding: 5px 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-canvas {
-    max-width: 45%;
-    margin-top: 20px;
-}
-
-.charts-container {
+.charts-section .row {
     display: flex;
     justify-content: space-between;
+}
+
+.charts-section .col-md-6 {
+    width: 48%;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .charts-section .row {
+        flex-direction: column;
+    }
+
+    .charts-section .col-md-6 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }

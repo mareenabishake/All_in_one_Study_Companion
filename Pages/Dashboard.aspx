@@ -12,7 +12,7 @@
         <main>
             <section class="dashboard-section">
                 <div class="dashboard-item">
-                    <a href="/WeeklySchedule">
+                    <a href="WeeklySchedule.aspx">
                         <div class="dashboard-link">
                             <img src="~/img/schedule-icon.png" alt="Weekly Schedule">
                             <span>Weekly Schedule</span>
@@ -20,7 +20,7 @@
                     </a>
                 </div>
                 <div class="dashboard-item">
-                    <a href="/StudyTime">
+                    <a href="StudyTime.aspx">
                         <div class="dashboard-link">
                             <img src="~/img/studytime-icon.png" alt="Study Time">
                             <span>Study Time</span>
@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="dashboard-item">
-                    <a href="/ExamMarks">
+                    <a href="ExamMarks.aspx">
                         <div class="dashboard-link">
                             <img src="~/img/exammarks-icon.png" alt="Exam Marks">
                             <span>Exam Marks</span>
@@ -36,7 +36,7 @@
                     </a>
                 </div>
                 <div class="dashboard-item">
-                    <a href="/QnA">
+                    <a href="QnA.aspx">
                         <div class="dashboard-link">
                             <img src="~/img/qna-icon.png" alt="Q&A">
                             <span>Q&A</span>
@@ -44,7 +44,7 @@
                     </a>
                 </div>
                 <div class="dashboard-item">
-                    <a href="/SearchLeaderboards">
+                    <a href="SearchLeaderboards.aspx">
                         <div class="dashboard-link">
                             <img src="~/img/leaderboards-icon.png" alt="Search & Leaderboards">
                             <span>Search & Leaderboards</span>
@@ -61,6 +61,7 @@
                 </div>
             </section>
         </main>
+        <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" CssClass="logout-button" />
     </form>
 </body>
 </html>
