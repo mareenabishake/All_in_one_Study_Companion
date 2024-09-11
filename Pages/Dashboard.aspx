@@ -52,7 +52,7 @@
                     </a>
                 </div>
                 <div class="dashboard-item">
-                    <a href="/Settings">
+                    <a href="Settings.aspx">
                         <div class="dashboard-link">
                             <img src="~/img/settings-icon.png" alt="Settings">
                             <span>Settings</span>

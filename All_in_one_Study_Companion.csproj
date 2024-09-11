@@ -201,6 +201,7 @@
     <Content Include="Pages\ExamMarks.aspx" />
     <Content Include="Pages\QnA.aspx" />
     <Content Include="Pages\SearchLeaderboards.aspx" />
+    <Content Include="Pages\Settings.aspx" />
     <Content Include="Pages\StudyTime.aspx" />
     <Content Include="Pages\WeeklySchedule.aspx" />
     <Content Include="Web.config" />
@@ -257,6 +258,13 @@
     </Compile>
     <Compile Include="Pages\SearchLeaderboards.aspx.designer.cs">
       <DependentUpon>SearchLeaderboards.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\StudyTime.aspx.cs">
       <DependentUpon>StudyTime.aspx</DependentUpon>
