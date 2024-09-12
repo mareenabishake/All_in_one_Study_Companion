@@ -26,10 +26,8 @@
     ];
 
     function displayQuestions(filteredQuestions = questions) {
-        questionList.innerHTML = '';
-        filteredQuestions.forEach(question => {
-            const li = document.createElement('li');
-            li.innerHTML = `
+        questionList.innerHTML = filteredQuestions.map(question => `
+            <li>
                 <h3>${question.title}</h3>
                 <p><strong>Level:</strong> ${question.level} | <strong>Subject:</strong> ${question.subject}</p>
                 <p>${question.content}</p>
@@ -37,9 +35,8 @@
                     <button class="answer-button">Answer</button>
                     <button class="view-answer-button">View Answer</button>
                 </div>
-            `;
-            questionList.appendChild(li);
-        });
+            </li>
+        `).join('');
     }
 
     function filterQuestions() {

@@ -12,35 +12,23 @@
     <div class="qa-container">
         <h2>Ask a Question</h2>
         <div class="ask-question form-container">
-            <div class="inputs-container">
-                <div class="form-group">
-                    <label for="academicLevel">Academic Level:</label>
-                    <select id="academicLevel">
-                        <option value="highschool">High School</option>
-                        <option value="undergraduate">Undergraduate</option>
-                        <option value="postgraduate">Postgraduate</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="subjectArea">Subject Area:</label>
-                    <select id="subjectArea">
-                        <option value="math">Math</option>
-                        <option value="science">Science</option>
-                        <option value="history">History</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="academicLevel">Academic Level:</label>
+                <asp:Textbox ID="academicLevel" runat="server"></asp:Textbox>
             </div>
-            <div class="text-container">
-                <div class="form-group">
-                    <label for="question">Question:</label>
-                    <textarea id="question" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="imageUpload">Upload an Image (optional):</label>
-                    <input type="file" id="imageUpload">
-                </div>
-                <button id="submitQuestion" class="styled-button">Submit</button>
+            <div class="form-group">
+                <label for="subjectArea">Subject Area:</label>
+                <asp:DropDownList ID="subjectArea" runat="server"></asp:DropDownList>
             </div>
+            <div class="form-group">
+                <label for="question">Question:</label>
+                <asp:TextBox ID="question" runat="server" TextMode="MultiLine" Rows="5"></asp:TextBox>
+            </div>
+            <div class="form-group">
+                <label for="imageUpload">Upload an Image (optional):</label>
+                <asp:FileUpload ID="imageUpload" runat="server" />
+            </div>
+            <asp:Button ID="submitQuestion" runat="server" Text="Submit Question" OnClick="SubmitQuestion_Click" CssClass="btn btn-primary" />
         </div>
     </div>
 
@@ -49,52 +37,23 @@
         <div class="filters">
             <div>
                 <label for="filterAcademicLevel">Academic Level:</label>
-                <select id="filterAcademicLevel">
-                    <option value="">All Levels</option>
-                    <option value="highschool">High School</option>
-                    <option value="undergraduate">Undergraduate</option>
-                    <option value="postgraduate">Postgraduate</option>
-                </select>
+                <asp:DropDownList ID="filterAcademicLevel" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FilterAcademicLevel_SelectedIndexChanged">
+                    <asp:ListItem Text="All Levels" Value=""></asp:ListItem>
+                    <asp:ListItem Text="Primary" Value="Primary"></asp:ListItem>
+                    <asp:ListItem Text="Middle School" Value="Middle School"></asp:ListItem>
+                    <asp:ListItem Text="O Level" Value="O Level"></asp:ListItem>
+                    <asp:ListItem Text="A Level" Value="A Level"></asp:ListItem>
+                    <asp:ListItem Text="Undergraduate" Value="Undergraduate"></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div>
                 <label for="filterSubjectArea">Subject Area:</label>
-                <select id="filterSubjectArea">
-                    <option value="">All Subjects</option>
-                    <option value="math">Math</option>
-                    <option value="science">Science</option>
-                    <option value="history">History</option>
-                </select>
+                <asp:TextBox ID="filterSubjectArea" runat="server" AutoPostBack="true" OnTextChanged="FilterSubjectArea_TextChanged"></asp:TextBox>
+                <asp:ListBox ID="subjectSuggestions" runat="server" Visible="false" AutoPostBack="true" OnSelectedIndexChanged="SubjectSuggestion_Selected"></asp:ListBox>
             </div>
         </div>
-        <ul id="questionList">
-            <!-- Sample questions for display -->
-            <li>
-                <h3>How do I solve this math problem?</h3>
-                <p><strong>Level:</strong> High School | <strong>Subject:</strong> Math</p>
-                <p>Can someone explain how to solve quadratic equations?</p>
-                <div class="button-container">
-                    <button class="answer-button">Answer</button>
-                    <button class="view-answer-button">View Answer</button>
-                </div>
-            </li>
-            <li>
-                <h3>What is the chemical formula for water?</h3>
-                <p><strong>Level:</strong> Undergraduate | <strong>Subject:</strong> Science</p>
-                <p>I'm confused about how to write chemical formulas. Can anyone help?</p>
-                <div class="button-container">
-                    <button class="answer-button">Answer</button>
-                    <button class="view-answer-button">View Answer</button>
-                </div>
-            </li>
-            <li>
-                <h3>Why did the Roman Empire fall?</h3>
-                <p><strong>Level:</strong> Postgraduate | <strong>Subject:</strong> History</p>
-                <p>I'm looking for detailed reasons behind the fall of the Roman Empire.</p>
-                <div class="button-container">
-                    <button class="answer-button">Answer</button>
-                    <button class="view-answer-button">View Answer</button>
-                </div>
-            </li>
+        <ul id="questionList" runat="server">
+            <!-- Questions will be populated here -->
         </ul>
     </div>
 

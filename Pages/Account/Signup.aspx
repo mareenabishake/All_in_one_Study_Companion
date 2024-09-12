@@ -42,11 +42,11 @@
                     <asp:Label runat="server" AssociatedControlID="ddlAcademicLevel">Academic Level</asp:Label>
                     <asp:DropDownList ID="ddlAcademicLevel" runat="server" required="required">
                         <asp:ListItem Value="">Select Academic Level</asp:ListItem>
-                        <asp:ListItem Value="primary">Primary</asp:ListItem>
-                        <asp:ListItem Value="middleSchool">Middle School</asp:ListItem>
-                        <asp:ListItem Value="olevel">O Level</asp:ListItem>
-                        <asp:ListItem Value="alevel">A Level</asp:ListItem>
-                        <asp:ListItem Value="undergraduate">Undergraduate</asp:ListItem>
+                        <asp:ListItem Value="Primary">Primary</asp:ListItem>
+                        <asp:ListItem Value="Middle School">Middle School</asp:ListItem>
+                        <asp:ListItem Value="O Level">O Level</asp:ListItem>
+                        <asp:ListItem Value="A Level">A Level</asp:ListItem>
+                        <asp:ListItem Value="Undergraduate">Undergraduate</asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>
