@@ -23,7 +23,8 @@ namespace All_in_one_Study_Companion.Pages.Account
             string username = Request.Form["Username"];
             string password = Request.Form["Password"];
 
-            if (ValidateUser(username, password, out int userId))
+            int userId = ValidateUser(username, password);
+            if (userId > 0)
             {
                 // Successful login
                 Session["UserID"] = userId;
@@ -37,9 +38,8 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
-        private bool ValidateUser(string username, string password, out int userId)
+        private int ValidateUser(string username, string password)
         {
-            userId = 0;
             string hashedPassword = HashPassword(password);
             DbHelper dbHelper = new DbHelper();
             string query = "SELECT UserID FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
@@ -54,16 +54,15 @@ namespace All_in_one_Study_Companion.Pages.Account
                 DataTable result = dbHelper.ExecuteQuery(query, parameters);
                 if (result.Rows.Count > 0)
                 {
-                    userId = Convert.ToInt32(result.Rows[0]["UserID"]);
-                    return true;
+                    return Convert.ToInt32(result.Rows[0]["UserID"]);
                 }
-                return false;
+                return 0;
             }
             catch (Exception ex)
             {
                 // Log the exception
                 Console.WriteLine($"Error validating user: {ex.Message}");
-                return false;
+                return 0;
             }
         }
 

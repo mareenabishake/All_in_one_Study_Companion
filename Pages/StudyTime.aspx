@@ -11,9 +11,9 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Study Time</h1>
     <div id="currentTimeContainer">
-        <div id="currentTime"></div>
-        <div id="dayOfWeek"></div>
-        <div id="currentDate"></div>
+        <span id="dayOfWeek"></span>
+        <span id="currentTime"></span>
+        <span id="currentDate"></span>
     </div>
     <div class="study-time-container">
         <div class="timer-container">
@@ -24,24 +24,25 @@
         <div class="controls-container">
             <div class="input-container">
                 <label for="hours">Hours:</label>
-                <input type="number" id="hours" min="0" value="0">
+                <input type="number" id="hours" min="0" value="0" />
                 <label for="minutes">Minutes:</label>
-                <input type="number" id="minutes" min="0" value="0">
+                <input type="number" id="minutes" min="0" value="0" />
             </div>
             <div class="dropdown-container">
                 <label for="subject">Subject:</label>
                 <select id="subject">
-                    <option value="Math">Math</option>
-                    <option value="Science">Science</option>
-                    <option value="History">History</option>
+                    <!-- Options will be populated dynamically -->
                 </select>
             </div>
-            <p id="totalDuration">Total Duration: 00:00</p>
-            <button id="startButton">Start</button>
-            <button id="stopButton">Stop</button>
-            <button id="resetButton">Reset</button>
+            <span id="totalDuration">Total Duration: 00:00</span>
+            <div class="btn-container">
+                <button id="startButton" class="btn">Start</button>
+                <button id="stopButton" class="btn">Stop</button>
+                <button id="resetButton" class="btn">Reset</button>
+            </div>
         </div>
     </div>
-
-    <script src="~/Content/js/StudyTime.js"></script>
+    <asp:HiddenField ID="hdnUserId" runat="server" />
+    <script src="/Content/js/StudyTime.js"></script>
 </asp:Content>
+

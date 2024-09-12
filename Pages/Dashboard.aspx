@@ -4,64 +4,57 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Dashboard - All in One Study Companion</title>
     <link href="../Content/css/Dashboard.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <main>
-            <section class="dashboard-section">
-                <div class="dashboard-item">
-                    <a href="WeeklySchedule.aspx">
-                        <div class="dashboard-link">
-                            <img src="~/img/schedule-icon.png" alt="Weekly Schedule">
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <h1>Dashboard</h1>
+                <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" CssClass="logout-button" />
+            </header>
+            <main>
+                <section class="dashboard-section">
+                    <div class="dashboard-item">
+                        <a href="WeeklySchedule.aspx" class="dashboard-link">
+                            <img src="../img/schedule-icon.png" alt="Weekly Schedule" runat="server" />
                             <span>Weekly Schedule</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="dashboard-item">
-                    <a href="StudyTime.aspx">
-                        <div class="dashboard-link">
-                            <img src="~/img/studytime-icon.png" alt="Study Time">
+                        </a>
+                    </div>
+                    <div class="dashboard-item">
+                        <a href="StudyTime.aspx" class="dashboard-link">
+                            <img src="../img/studytime-icon.png" alt="Study Time" runat="server" />
                             <span>Study Time</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="dashboard-item">
-                    <a href="ExamMarks.aspx">
-                        <div class="dashboard-link">
-                            <img src="~/img/exammarks-icon.png" alt="Exam Marks">
+                        </a>
+                    </div>
+                    <div class="dashboard-item">
+                        <a href="ExamMarks.aspx" class="dashboard-link">
+                            <img src="../img/exammarks-icon.png" alt="Exam Marks" runat="server" />
                             <span>Exam Marks</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="dashboard-item">
-                    <a href="QnA.aspx">
-                        <div class="dashboard-link">
-                            <img src="~/img/qna-icon.png" alt="Q&A">
+                        </a>
+                    </div>
+                    <div class="dashboard-item">
+                        <a href="QnA.aspx" class="dashboard-link">
+                            <img src="../img/qna-icon.png" alt="Q&A" runat="server" />
                             <span>Q&A</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="dashboard-item">
-                    <a href="SearchLeaderboards.aspx">
-                        <div class="dashboard-link">
-                            <img src="~/img/leaderboards-icon.png" alt="Search & Leaderboards">
+                        </a>
+                    </div>
+                    <div class="dashboard-item">
+                        <a href="SearchLeaderboards.aspx" class="dashboard-link">
+                            <img src="../img/leaderboards-icon.png" alt="Search & Leaderboards" runat="server" />
                             <span>Search & Leaderboards</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="dashboard-item">
-                    <a href="Settings.aspx">
-                        <div class="dashboard-link">
-                            <img src="~/img/settings-icon.png" alt="Settings">
+                        </a>
+                    </div>
+                    <div class="dashboard-item">
+                        <a href="Settings.aspx" class="dashboard-link">
+                            <img src="../img/settings-icon.png" alt="Settings" runat="server" />
                             <span>Settings</span>
-                        </div>
-                    </a>
-                </div>
-            </section>
-        </main>
-        <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" CssClass="logout-button" />
+                        </a>
+                    </div>
+                </section>
+            </main>
+        </div>
     </form>
 </body>
 </html>

@@ -1,33 +1,40 @@
 ﻿body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background: url('../img/landinBg.jpg') no-repeat center center fixed;
     background-size: cover;
+    color: #333;
+    line-height: 1.6;
 }
 
 main {
-    padding: 120px 20px;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 1200px;
-    margin: auto;
+    max-width: 800px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .study-time-container, .timer-container, .controls-container {
-    width: 100%;
-    margin-bottom: 40px;
-    background: rgba(255, 255, 255, 0.9);
+    width: 90%;
+    margin-bottom: 30px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 h2, h3 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
 }
 
 .form-group {
@@ -37,43 +44,222 @@ h2, h3 {
 label {
     display: block;
     margin-bottom: 5px;
+    font-weight: 500;
+    color: #34495e;
 }
 
 .form-control, select, input[type="number"] {
     width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, select:focus, input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 .btn {
-    padding: 10px 15px;
-    background-color: #4caf50;
+    padding: 12px 24px;
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+#startButton {
+    background-color: #2ecc71;
+}
+
+#startButton:hover {
+    background-color: #27ae60;
+}
+
+#stopButton {
+    background-color: #e74c3c;
+}
+
+#stopButton:hover {
+    background-color: #c0392b;
+}
+
+#resetButton {
+    background-color: #f39c12;
+}
+
+#resetButton:hover {
+    background-color: #d35400;
 }
 
 .timer-circle {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background: rgba(200, 200, 200, 0.3);
+    background: conic-gradient(#3498db 0deg, #ecf0f1 0deg);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 36px;
     margin: 20px auto;
+    position: relative;
+    transition: background 0.1s linear;
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.timer-circle::before {
+    content: '';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+#timeRemaining {
+    position: relative;
+    z-index: 1;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-container, .dropdown-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-container label, .dropdown-container label {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.input-container input, .dropdown-container select {
+    flex: 2;
+}
+
+#totalDuration {
+    font-size: 18px;
+    margin: 15px 0;
+    font-weight: 600;
+    color: #2c3e50;
 }
 
 @media (max-width: 768px) {
     main {
-        padding: 80px 10px;
+        padding: 20px 10px;
+    }
+
+    .study-time-container, .timer-container, .controls-container {
+        width: 95%;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .input-container, .dropdown-container {
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
+
+    .input-container input, .dropdown-container select {
+        width: 100%;
+        margin-top: 5px;
+        padding: 10px;
+    }
+}
+
+/* Add these new styles at the end of your existing CSS file */
+
+#currentTimeContainer {
+    text-align: center;
+    margin: 3%;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#currentTime {
+    font-size: 30px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: left;
+
+}
+
+#dayOfWeek {
+    font-size: 24px;
+    color: #34495e;
+    margin: 3%;
+}
+
+#currentDate {
+    font-size: 20px;
+    color: #7f8c8d;
+    margin: 3%;
+
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    #currentTimeContainer {
+        margin: 20px 0;
+        padding: 15px;
+    }
+
+    #currentTime {
+        font-size: 28px;
+    }
+
+    #dayOfWeek {
+        font-size: 20px;
+    }
+
+    #currentDate {
+        font-size: 18px;
     }
 }
