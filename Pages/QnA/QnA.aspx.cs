@@ -5,8 +5,10 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Web.Services;
+using System.Web.Script.Serialization;
 
-namespace All_in_one_Study_Companion.Pages
+namespace All_in_one_Study_Companion.Pages.QnA
 {
     public partial class QnA : System.Web.UI.Page
     {
@@ -149,7 +151,7 @@ namespace All_in_one_Study_Companion.Pages
             string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT DISTINCT SubjectName FROM QnA WHERE SubjectName LIKE @SearchTerm + '%'";
+                string query = "SELECT DISTINCT SubjectName FROM Questions WHERE SubjectName LIKE @SearchTerm + '%'";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@SearchTerm", searchTerm);
@@ -174,8 +176,12 @@ namespace All_in_one_Study_Companion.Pages
             string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM QnA WHERE (@AcademicLevel = '' OR AcademicLevel = @AcademicLevel) " +
-                               "AND (@SubjectArea = '' OR SubjectName LIKE '%' + @SubjectArea + '%')";
+                string query = @"SELECT q.*, 
+                                 (SELECT COUNT(*) FROM Answers a WHERE a.QuestionID = q.QuestionID) AS AnswerCount
+                                 FROM Questions q
+                                 WHERE (@AcademicLevel = '' OR q.AcademicLevel = @AcademicLevel)
+                                 AND (@SubjectArea = '' OR q.SubjectName LIKE '%' + @SubjectArea + '%')";
+
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@AcademicLevel", academicLevel);
@@ -186,13 +192,21 @@ namespace All_in_one_Study_Companion.Pages
                         questionList.InnerHtml = ""; // Clear existing questions
                         while (reader.Read())
                         {
+                            int answerCount = Convert.ToInt32(reader["AnswerCount"]);
+                            string viewAnswersButton = answerCount > 0 
+                                ? $"<a href='ViewAnswers.aspx?id={reader["QuestionID"]}' class='view-answers-button'>View Answers ({answerCount})</a>" 
+                                : "";
+
                             string questionHtml = $@"
                                 <li>
-                                    <h3>{reader["QuestionText"]}</h3>
+                                    <div class='question-header'>
+                                        <h3>{reader["QuestionText"]}</h3>
+                                        <span class='question-id'>ID: {reader["QuestionID"]}</span>
+                                    </div>
                                     <p><strong>Level:</strong> {reader["AcademicLevel"]} | <strong>Subject:</strong> {reader["SubjectName"]}</p>
                                     <div class='button-container'>
-                                        <button class='answer-button'>Answer</button>
-                                        <button class='view-answer-button'>View Answer</button>
+                                        <a href='Answer.aspx?id={reader["QuestionID"]}' class='answer-button'>Answer</a>
+                                        {viewAnswersButton}
                                     </div>
                                 </li>";
                             questionList.InnerHtml += questionHtml;
@@ -245,7 +259,7 @@ namespace All_in_one_Study_Companion.Pages
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"INSERT INTO QnA (UserID, SubjectName, QuestionText, ImagePath, AcademicLevel) 
+                string query = @"INSERT INTO Questions (UserID, SubjectName, QuestionText, ImagePath, AcademicLevel) 
                                  VALUES (@UserID, @SubjectName, @QuestionText, @ImagePath, @AcademicLevel)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -274,6 +288,47 @@ namespace All_in_one_Study_Companion.Pages
         {
             question.Text = string.Empty;
             subjectArea.SelectedIndex = 0;
+        }
+
+        [WebMethod]
+        public static string GetFilteredQuestions(string academicLevel, string subjectArea)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
+            List<object> questions = new List<object>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT q.*, 
+                           (SELECT COUNT(*) FROM Answers a WHERE a.QuestionID = q.QuestionID) AS AnswerCount
+                    FROM Questions q
+                    WHERE (@AcademicLevel = '' OR q.AcademicLevel = @AcademicLevel)
+                    AND (@SubjectArea = '' OR q.SubjectName LIKE '%' + @SubjectArea + '%')";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@AcademicLevel", academicLevel);
+                    command.Parameters.AddWithValue("@SubjectArea", subjectArea);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            questions.Add(new
+                            {
+                                QuestionID = reader["QuestionID"],
+                                QuestionText = reader["QuestionText"].ToString(),
+                                AcademicLevel = reader["AcademicLevel"].ToString(),
+                                SubjectName = reader["SubjectName"].ToString(),
+                                AnswerCount = Convert.ToInt32(reader["AnswerCount"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(questions);
         }
     }
 }

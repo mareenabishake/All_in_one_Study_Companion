@@ -3,37 +3,19 @@
     const filterAcademicLevel = document.getElementById('filterAcademicLevel');
     const filterSubjectArea = document.getElementById('filterSubjectArea');
 
-    // Example data for questions
-    const questions = [
-        {
-            title: 'How do I solve this math problem?',
-            level: 'High School',
-            subject: 'Math',
-            content: 'Can someone explain how to solve quadratic equations?',
-        },
-        {
-            title: 'What is the chemical formula for water?',
-            level: 'Undergraduate',
-            subject: 'Science',
-            content: 'I\'m confused about how to write chemical formulas. Can anyone help?',
-        },
-        {
-            title: 'Why did the Roman Empire fall?',
-            level: 'Postgraduate',
-            subject: 'History',
-            content: 'I\'m looking for detailed reasons behind the fall of the Roman Empire.',
-        }
-    ];
-
-    function displayQuestions(filteredQuestions = questions) {
-        questionList.innerHTML = filteredQuestions.map(question => `
+    function displayQuestions(questions) {
+        questionList.innerHTML = questions.map(question => `
             <li>
-                <h3>${question.title}</h3>
-                <p><strong>Level:</strong> ${question.level} | <strong>Subject:</strong> ${question.subject}</p>
-                <p>${question.content}</p>
+                <div class="question-header">
+                    <h3>${question.QuestionText}</h3>
+                    <span class="question-id">ID: ${question.QuestionID}</span>
+                </div>
+                <p><strong>Level:</strong> ${question.AcademicLevel} | <strong>Subject:</strong> ${question.SubjectName}</p>
                 <div class="button-container">
-                    <button class="answer-button">Answer</button>
-                    <button class="view-answer-button">View Answer</button>
+                    <a href="Answer.aspx?id=${question.QuestionID}" class="answer-button">Answer</a>
+                    ${question.AnswerCount > 0 ? 
+                        `<a href="ViewAnswers.aspx?id=${question.QuestionID}" class="view-answers-button">View Answers (${question.AnswerCount})</a>` : 
+                        ''}
                 </div>
             </li>
         `).join('');
@@ -43,15 +25,26 @@
         const level = filterAcademicLevel.value;
         const subject = filterSubjectArea.value;
 
-        const filteredQuestions = questions.filter(q =>
-            (level === '' || q.level === level) && (subject === '' || q.subject === subject)
-        );
-
-        displayQuestions(filteredQuestions);
+        // AJAX call to server to get filtered questions
+        $.ajax({
+            type: "POST",
+            url: "QnA.aspx/GetFilteredQuestions",
+            data: JSON.stringify({ academicLevel: level, subjectArea: subject }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                const questions = JSON.parse(response.d);
+                displayQuestions(questions);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching questions:", error);
+            }
+        });
     }
 
     filterAcademicLevel.addEventListener('change', filterQuestions);
     filterSubjectArea.addEventListener('change', filterQuestions);
 
-    displayQuestions();
+    // Initial load of questions
+    filterQuestions();
 });

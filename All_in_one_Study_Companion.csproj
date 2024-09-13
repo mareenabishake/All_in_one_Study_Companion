@@ -110,14 +110,17 @@
     <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
     <Content Include="bin\roslyn\vbc.exe" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="Content\css\Answers.css" />
     <Content Include="Content\css\Dashboard.css" />
     <Content Include="Content\css\LandIn.css" />
+    <Content Include="Content\css\Settings.css" />
     <Content Include="Content\css\Signup.css" />
     <Content Include="Content\css\ExamMarks.css" />
     <Content Include="Content\css\QnA.css" />
     <Content Include="Content\css\SearchLeaderboards.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\css\StudyTime.css" />
+    <Content Include="Content\css\ViewAnswers.css" />
     <Content Include="Content\css\WeeklySchedule.css" />
     <Content Include="Content\img\ai-scheduling-icon.png" />
     <Content Include="Content\img\gamified-learning-icon.jpg" />
@@ -197,9 +200,11 @@
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\VBCSCompiler.exe" />
     <Content Include="Pages\Account\LandIn.aspx" />
     <Content Include="Pages\Account\Signup.aspx" />
+    <Content Include="Pages\QnA\Answer.aspx" />
     <Content Include="Pages\Dashboard.aspx" />
     <Content Include="Pages\ExamMarks.aspx" />
-    <Content Include="Pages\QnA.aspx" />
+    <Content Include="Pages\QnA\QnA.aspx" />
+    <Content Include="Pages\QnA\ViewAnswers.aspx" />
     <Content Include="Pages\SearchLeaderboards.aspx" />
     <Content Include="Pages\Settings.aspx" />
     <Content Include="Pages\StudyTime.aspx" />
@@ -231,6 +236,13 @@
     <Compile Include="Pages\Account\Signup.aspx.designer.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\QnA\Answer.aspx.cs">
+      <DependentUpon>Answer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\QnA\Answer.aspx.designer.cs">
+      <DependentUpon>Answer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,12 +257,19 @@
     <Compile Include="Pages\ExamMarks.aspx.designer.cs">
       <DependentUpon>ExamMarks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\QnA.aspx.cs">
+    <Compile Include="Pages\QnA\QnA.aspx.cs">
       <DependentUpon>QnA.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\QnA.aspx.designer.cs">
+    <Compile Include="Pages\QnA\QnA.aspx.designer.cs">
       <DependentUpon>QnA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\QnA\ViewAnswers.aspx.cs">
+      <DependentUpon>ViewAnswers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\QnA\ViewAnswers.aspx.designer.cs">
+      <DependentUpon>ViewAnswers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\SearchLeaderboards.aspx.cs">
       <DependentUpon>SearchLeaderboards.aspx</DependentUpon>

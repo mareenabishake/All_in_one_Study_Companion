@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace All_in_one_Study_Companion.Pages
+namespace All_in_one_Study_Companion.Pages.QnA
 {
 
 

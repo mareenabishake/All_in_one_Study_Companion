@@ -18,6 +18,7 @@ header {
 
 .container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -47,7 +48,8 @@ nav ul li a {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
-    margin-bottom: 60px; /* Add margin to prevent content from being hidden behind footer */
+    width: 100%;
+    margin-bottom: 50px; /* Add margin to prevent content from being hidden behind footer */
 }
 
 footer {

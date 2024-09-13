@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
     <title>Dashboard - All in One Study Companion</title>
     <link href="../Content/css/Dashboard.css" rel="stylesheet" />
@@ -35,7 +35,7 @@
                         </a>
                     </div>
                     <div class="dashboard-item">
-                        <a href="QnA.aspx" class="dashboard-link">
+                        <a href="QnA/QnA.aspx" class="dashboard-link">
                             <img src="../img/qna-icon.png" alt="Q&A" runat="server" />
                             <span>Q&A</span>
                         </a>
