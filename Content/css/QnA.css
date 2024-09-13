@@ -16,12 +16,11 @@ main {
     margin: auto;
 }
 
-.qa-container, .ask-question, .view-questions {
+.qa-container, .view-questions {
     width: 100%;
-    max-width: 1000px; /* Increase the max-width to make the container wider */
-    margin-bottom: 40px;
+    margin-bottom: 5%;
     background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
+    padding: 50px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* Add this to include padding in width calculation */

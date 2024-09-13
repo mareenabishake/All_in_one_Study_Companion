@@ -11,27 +11,25 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="qa-container">
         <h2>Ask a Question</h2>
-        <div class="ask-question form-container">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="academicLevel">Academic Level:</label>
-                    <asp:Textbox ID="academicLevel" runat="server"></asp:Textbox>
-                </div>
-                <div class="form-group">
-                    <label for="subjectArea">Subject Area:</label>
-                    <asp:DropDownList ID="subjectArea" runat="server"></asp:DropDownList>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="academicLevel">Academic Level:</label>
+                <asp:Textbox ID="academicLevel" runat="server"></asp:Textbox>
             </div>
             <div class="form-group">
-                <label for="question">Question:</label>
-                <asp:TextBox ID="question" runat="server" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                <label for="subjectArea">Subject Area:</label>
+                <asp:DropDownList ID="subjectArea" runat="server"></asp:DropDownList>
             </div>
-            <div class="form-group">
-                <label for="imageUpload">Upload an Image (optional):</label>
-                <asp:FileUpload ID="imageUpload" runat="server" />
-            </div>
-            <asp:Button ID="submitQuestion" runat="server" Text="Submit Question" OnClick="SubmitQuestion_Click" CssClass="btn btn-primary" />
         </div>
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <asp:TextBox ID="question" runat="server" TextMode="MultiLine" Rows="5"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="imageUpload">Upload an Image (optional):</label>
+            <asp:FileUpload ID="imageUpload" runat="server" />
+        </div>
+        <asp:Button ID="submitQuestion" runat="server" Text="Submit Question" OnClick="SubmitQuestion_Click" CssClass="btn btn-primary" />
     </div>
 
     <div class="view-questions">

@@ -18,37 +18,37 @@
                 <section class="dashboard-section">
                     <div class="dashboard-item">
                         <a href="WeeklySchedule.aspx" class="dashboard-link">
-                            <img src="../img/schedule-icon.png" alt="Weekly Schedule" runat="server" />
+                            <img src="../Content/img/weeklySchedule.jpeg" alt="Weekly Schedule" runat="server" />
                             <span>Weekly Schedule</span>
                         </a>
                     </div>
                     <div class="dashboard-item">
                         <a href="StudyTime.aspx" class="dashboard-link">
-                            <img src="../img/studytime-icon.png" alt="Study Time" runat="server" />
+                            <img src="../Content/img/StudyTime.jpg" alt="Study Time" runat="server" />
                             <span>Study Time</span>
                         </a>
                     </div>
                     <div class="dashboard-item">
                         <a href="ExamMarks.aspx" class="dashboard-link">
-                            <img src="../img/exammarks-icon.png" alt="Exam Marks" runat="server" />
+                            <img src="../Content/img/ExamMarks.jpg" alt="Exam Marks" runat="server" />
                             <span>Exam Marks</span>
                         </a>
                     </div>
                     <div class="dashboard-item">
                         <a href="QnA/QnA.aspx" class="dashboard-link">
-                            <img src="../img/qna-icon.png" alt="Q&A" runat="server" />
+                            <img src="../Content/img/QnA.png" alt="Q&A" runat="server" />
                             <span>Q&A</span>
                         </a>
                     </div>
                     <div class="dashboard-item">
                         <a href="SearchLeaderboards.aspx" class="dashboard-link">
-                            <img src="../img/leaderboards-icon.png" alt="Search & Leaderboards" runat="server" />
+                            <img src="../Content/img/Leaderboards.jpg" alt="Search & Leaderboards" runat="server" />
                             <span>Search & Leaderboards</span>
                         </a>
                     </div>
                     <div class="dashboard-item">
                         <a href="Settings.aspx" class="dashboard-link">
-                            <img src="../img/settings-icon.png" alt="Settings" runat="server" />
+                            <img src="../Content/img/settings.png" alt="Settings" runat="server" />
                             <span>Settings</span>
                         </a>
                     </div>

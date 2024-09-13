@@ -51,22 +51,22 @@
             <h2>Key Features</h2>
             <div class="features-container">
                 <div class="feature">
-                    <img id="aiScheduling" src="~/img/ai-scheduling-icon.png" alt="AI Scheduling">
+                    <img id="aiScheduling" src="../../Content/img/ai-scheduling-icon.png" alt="AI Scheduling">
                     <h3>AI Scheduling</h3>
                     <p>Dynamic schedules tailored to your needs.</p>
                 </div>
                 <div class="feature">
-                    <img src="~/img/progress-tracking-icon.png" alt="Progress Tracking">
+                    <img src="../../Content/img/progress-tracking-icon.png" alt="Progress Tracking">
                     <h3>Progress Tracking</h3>
                     <p>Monitor your study progress and achievements.</p>
                 </div>
                 <div class="feature">
-                    <img id="gamifiedLearning" src="~/img/gamified-learning-icon.jpg" alt="Gamified Learning">
+                    <img id="gamifiedLearning" src="../../Content/img/gamified-learning-icon.jpg" alt="Gamified Learning">
                     <h3>Gamified Learning</h3>
                     <p>Engage and motivate yourself with gamified elements.</p>
                 </div>
                 <div class="feature">
-                    <img src="~/img/peer-support-icon.jpg" alt="Peer Support">
+                    <img src="../../Content/img/peer-support-icon.jpg" alt="Peer Support">
                     <h3>Peer Support</h3>
                     <p>Collaborate and learn with your peers.</p>
                 </div>

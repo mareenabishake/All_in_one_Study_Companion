@@ -123,11 +123,17 @@
     <Content Include="Content\css\ViewAnswers.css" />
     <Content Include="Content\css\WeeklySchedule.css" />
     <Content Include="Content\img\ai-scheduling-icon.png" />
+    <Content Include="Content\img\ExamMarks.jpg" />
     <Content Include="Content\img\gamified-learning-icon.jpg" />
     <Content Include="Content\img\hero-image.png" />
     <Content Include="Content\img\landInBg.jpg" />
+    <Content Include="Content\img\Leaderboards.jpg" />
     <Content Include="Content\img\peer-support-icon.jpg" />
     <Content Include="Content\img\progress-tracking-icon.png" />
+    <Content Include="Content\img\QnA.png" />
+    <Content Include="Content\img\Settings.png" />
+    <Content Include="Content\img\StudyTime.jpg" />
+    <Content Include="Content\img\weeklySchedule.jpeg" />
     <Content Include="Content\js\Dashboard.js" />
     <Content Include="Content\js\ExamMarks.js" />
     <Content Include="Content\js\LandIn.js" />
@@ -209,6 +215,7 @@
     <Content Include="Pages\Settings.aspx" />
     <Content Include="Pages\StudyTime.aspx" />
     <Content Include="Pages\WeeklySchedule.aspx" />
+    <Content Include="Uploads\QuestionImages\3f940de0-2430-40c0-b754-de00eba9bc3b.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

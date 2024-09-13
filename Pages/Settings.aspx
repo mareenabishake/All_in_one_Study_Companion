@@ -9,8 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container">
-        <h1>User Settings</h1>
+    <div class="content-container">
         
         <asp:Panel ID="pnlUserInfo" runat="server" CssClass="panel">
             <h2>Update User Information</h2>
@@ -51,12 +50,13 @@
             <asp:Button ID="btnUpdate" runat="server" Text="Update Information" CssClass="btn btn-primary" OnClick="btnUpdate_Click" />
         </asp:Panel>
         
-        <asp:Panel ID="pnlDeleteAccount" runat="server" CssClass="panel">
-            <h2>Delete Account</h2>
-            <p>Warning: This action cannot be undone.</p>
-            <asp:Button ID="btnDeleteAccount" runat="server" Text="Delete Account" CssClass="btn btn-danger" OnClick="btnDeleteAccount_Click" OnClientClick="return confirm('Are you sure you want to delete your account? This action cannot be undone.');" />
-        </asp:Panel>
-        
-        <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn btn-secondary" OnClick="btnLogout_Click" />
+        <div class="right-panel">
+            <asp:Panel ID="pnlDeleteAccount" runat="server" CssClass="panel">
+                <h2>Delete Account</h2>
+                <p>This action cannot be undone.</p>
+                <asp:Button ID="btnDeleteAccount" runat="server" Text="Delete Account" CssClass="btn btn-danger" OnClick="btnDeleteAccount_Click" OnClientClick="return confirm('Are you sure you want to delete your account? This action cannot be undone.');" />
+            </asp:Panel>
+            <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn btn-secondary btn-logout" OnClick="btnLogout_Click" />
+        </div>
     </div>
 </asp:Content>
