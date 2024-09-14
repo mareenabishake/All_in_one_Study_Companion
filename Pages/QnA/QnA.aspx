@@ -49,7 +49,10 @@
                 </div>
                 <div>
                     <label for="filterSubjectArea">Subject Area:</label>
-                    <asp:TextBox ID="filterSubjectArea" runat="server" AutoPostBack="true" OnTextChanged="FilterSubjectArea_TextChanged"></asp:TextBox>
+                    <div class="search-container">
+                        <asp:TextBox ID="filterSubjectArea" runat="server" AutoPostBack="true" OnTextChanged="FilterSubjectArea_TextChanged"></asp:TextBox>
+                        <button type="button" class="search-button">Search</button>
+                    </div>
                     <asp:ListBox ID="subjectSuggestions" runat="server" Visible="false" AutoPostBack="true" OnSelectedIndexChanged="SubjectSuggestion_Selected"></asp:ListBox>
                 </div>
             </div>

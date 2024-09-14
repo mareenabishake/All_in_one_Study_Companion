@@ -158,3 +158,27 @@ textarea {
 .form-row .form-group {
     width: 48%; /* Adjust as needed */
 }
+
+/* Add these new styles */
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-button {
+    padding: 8px 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    margin-left: -1px;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+#filterSubjectArea {
+    border-radius: 4px 0 0 4px;
+}

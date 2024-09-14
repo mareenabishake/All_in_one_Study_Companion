@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="top-container">
             <div class="logo">Study Companion</div>
             <nav>
                 <ul>
@@ -18,7 +18,6 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="/Settings">Settings</a></li>
                 </ul>
             </nav>
         </div>
@@ -111,13 +110,13 @@
     </section>
 
     <footer>
-        <div class="container">
+        <div class="bottom-container">
             <p>&copy; 2024 All in One Study Companion. All rights reserved.</p>
-            <ul>
-                <li><a href="#contact">Contact Information</a></li>
-                <li><a href="#privacy">Privacy Policy</a></li>
-                <li><a href="#terms">Terms of Service</a></li>
-            </ul>
+            <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy</a> |
+                <a href="#terms">Terms</a>
+            </nav>
         </div>
     </footer>
     <script src="../../Content/js/LandIn.js"></script>

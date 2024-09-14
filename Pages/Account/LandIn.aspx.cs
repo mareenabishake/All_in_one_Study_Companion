@@ -2,7 +2,7 @@
 using System.Web.UI;
 using System.Data.SqlClient;
 using System.Data;
-using All_in_one_Study_Companion.Helpers;
+using All_in_one_Study_Companion.Classes;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -20,8 +20,8 @@ namespace All_in_one_Study_Companion.Pages.Account
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = Request.Form["Username"];
-            string password = Request.Form["Password"];
+            string username = Username.Text;
+            string password = Password.Text;
 
             int userId = ValidateUser(username, password);
             if (userId > 0)

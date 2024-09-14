@@ -12,8 +12,10 @@
     <div class="answer-question-container">
         <div class="question-container">
             <h2>Question:</h2>
-            <asp:Label ID="QuestionText" runat="server" Text=""></asp:Label>
+            <asp:Label ID="QuestionText" runat="server" CssClass="question-text"></asp:Label>
+            <asp:Image ID="QuestionImage" runat="server" CssClass="question-image" />
         </div>
+
         <div class="answer-container">
             <h3>Your Answer:</h3>
             <asp:TextBox ID="AnswerText" runat="server" TextMode="MultiLine"></asp:TextBox>

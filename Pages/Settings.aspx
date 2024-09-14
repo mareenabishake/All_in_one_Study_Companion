@@ -25,10 +25,11 @@
                 <asp:Label ID="lblAcademicLevel" runat="server" AssociatedControlID="ddlAcademicLevel">Academic Level:</asp:Label>
                 <asp:DropDownList ID="ddlAcademicLevel" runat="server" CssClass="form-control">
                     <asp:ListItem Text="Select Academic Level" Value=""></asp:ListItem>
-                    <asp:ListItem Text="High School" Value="HighSchool"></asp:ListItem>
+                    <asp:ListItem Text="Primary" Value="Primary"></asp:ListItem>
+                    <asp:ListItem Text="Middle School" Value="Middle School"></asp:ListItem>
+                    <asp:ListItem Text="O Level" Value="O Level"></asp:ListItem>
+                    <asp:ListItem Text="A Level" Value="A Level"></asp:ListItem>
                     <asp:ListItem Text="Undergraduate" Value="Undergraduate"></asp:ListItem>
-                    <asp:ListItem Text="Graduate" Value="Graduate"></asp:ListItem>
-                    <asp:ListItem Text="Postgraduate" Value="Postgraduate"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="form-group">

@@ -3,60 +3,68 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 1%;
     background: url('../img/landinbg.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden; /* Prevent scrolling */
+    min-height: 100vh;
+
 }
 
 header {
-    background: rgba(34, 34, 34, 0.8);
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
+    background: #f5b4b4;
+    position: sticky;
     top: 0;
+    position: fixed;
     z-index: 1000;
+    box-shadow: 0 2px 5px rgba(231, 222, 222, 0.1);
+    width: 100%;
 }
 
     header .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
+        margin-bottom: 1%;
+        margin-top: 1%;
     }
 
     header .logo {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
     }
 
     header nav ul {
-        list-style: none;
-        margin: 0;
+        list-style-type: none;
         padding: 0;
-        display: flex;
+        margin: 0;
     }
 
         header nav ul li {
-            margin-left: 20px;
+            display: inline;
+            margin-right: 10px;
         }
 
             header nav ul li a {
-                color: #fff;
                 text-decoration: none;
-                font-size: 18px;
-                transition: color 0.3s ease;
+                color: #333;
             }
 
                 header nav ul li a:hover {
-                    color: #ffcc00;
+                    color: #ffffff;
+                }
+
+                .container {
+                    width: 98%;
+                    margin: 0.5%;
+                    background: rgb(240, 204, 204);
+                    padding: 0.5%;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(233, 6, 6, 0.1);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
                 }
 
 .signup-container {
@@ -67,7 +75,8 @@ header {
     max-width: 500px;
     width: 90%; /* Adjust to ensure it fits smaller screens */
     text-align: center;
-    margin-top: 100px; /* Offset from the top to avoid header overlap */
+    margin-top: 2%; 
+    margin-bottom: 2%;/* Offset from the top to avoid header overlap */
 }
 
     .signup-container h1 {
@@ -136,3 +145,48 @@ p {
         p a:hover {
             text-decoration: underline;
         }
+
+footer {
+    background-color: #f5b4b4;
+    padding: 10px 0;
+    font-size: 0.8em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    position: fixed; /* Change from fixed to relative */
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+}
+
+.footer-nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin-bottom: 5px;
+    }
+
+    footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-nav {
+        margin-top: 10px;
+    }
+}

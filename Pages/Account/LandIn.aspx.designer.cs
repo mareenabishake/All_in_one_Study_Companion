@@ -23,6 +23,7 @@ namespace All_in_one_Study_Companion.Pages.Account
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm loginForm;
 
+
         /// <summary>
         /// Username control.
         /// </summary>

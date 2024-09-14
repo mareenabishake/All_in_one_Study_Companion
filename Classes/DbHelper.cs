@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace All_in_one_Study_Companion.Helpers
+namespace All_in_one_Study_Companion.Classes
 {
     public class DbHelper
     {

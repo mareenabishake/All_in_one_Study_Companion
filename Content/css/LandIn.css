@@ -2,61 +2,66 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background: url('../img/landinbg.jpg') no-repeat center center fixed;
     background-size: cover;
-    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
 }
-
 header {
-    background: rgba(34, 34, 34, 0.8);
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
+    background: rgba(244, 244, 244, 0.6);
+    position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 5px rgba(231, 222, 222, 0.1);
 }
 
-    header .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
+    header .top-container {
+        margin-bottom: 1%;
+        margin-top: 1%;
     }
 
     header .logo {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     header nav ul {
-        list-style: none;
-        margin: 0;
+        list-style-type: none;
         padding: 0;
-        display: flex;
+        margin: 0;
     }
 
         header nav ul li {
-            margin-left: 20px;
+            display: inline;
+            margin-right: 10px;
         }
 
             header nav ul li a {
-                color: #fff;
                 text-decoration: none;
-                font-size: 18px;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                transition: color 0.3s ease;
+                color: #333;
             }
 
                 header nav ul li a:hover {
-                    color: #ffcc00;
+                    color: #ffffff;
                 }
 
+                .top-container, .bottom-container {
+                    width: 98%;
+                    margin: 0.5%;
+                    background: rgb(240, 204, 204);
+                    padding: 0.5%;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(233, 6, 6, 0.1);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                }
+
+
+
 #hero {
-    background: rgba(244, 244, 244, 0.8);
+    background: rgba(244, 244, 244, 0.7);
     padding: 20px;
     text-align: center;
     height: 100vh;
@@ -306,21 +311,44 @@ form {
 }
 
 footer {
-    background: rgba(51, 51, 51, 0.6);
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+    background: rgba(244, 244, 244, 0.6);
+    padding: 10px 0;
+    font-size: 0.8em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
-    footer .container {
-        max-width: 800px;
-        margin: auto;
+footer p {
+    margin: 0;
+}
+
+.footer-nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: flex;
+        flex-direction: column;
     }
 
-    footer ul {
-        list-style: none;
-        padding: 0;
+    nav ul li {
+        margin-bottom: 5px;
     }
+
+
+    .footer-nav {
+        margin-top: 10px;
+    }
+}
 
         footer ul li {
             display: inline;

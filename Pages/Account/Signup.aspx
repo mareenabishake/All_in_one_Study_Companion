@@ -14,13 +14,10 @@
             <div class="logo">Study Companion</div>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/WeeklySchedule">Weekly Schedule</a></li>
-                    <li><a href="/StudyTime">Study Time</a></li>
-                    <li><a href="/ExamMarks">Exam Marks</a></li>
-                    <li><a href="/PostQuestionsAnswers">Q&A</a></li>
-                    <li><a href="/SearchLeaderboards">Search & Leaderboards</a></li>
-                    <li><a href="/Settings">Settings</a></li>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                 </ul>
             </nav>
         </div>
@@ -74,5 +71,16 @@
             <p>Already have an account? <a href="/index">Log In</a></p>
         </form>
     </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 All in One Study Companion. All rights reserved.</p>
+            <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy</a> |
+                <a href="#terms">Terms</a>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>

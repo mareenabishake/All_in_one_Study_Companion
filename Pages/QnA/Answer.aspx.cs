@@ -14,8 +14,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
             {
                 if (Request.QueryString["id"] != null)
                 {
-                    int questionId;
-                    if (int.TryParse(Request.QueryString["id"], out questionId))
+                    if (int.TryParse(Request.QueryString["id"], out int questionId))
                     {
                         QuestionID.Value = questionId.ToString();
                         LoadQuestion(questionId);
@@ -39,20 +38,32 @@ namespace All_in_one_Study_Companion.Pages.QnA
             string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT QuestionText FROM Questions WHERE QuestionID = @QuestionID";
+                string query = "SELECT QuestionText, ImagePath FROM Questions WHERE QuestionID = @QuestionID";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@QuestionID", questionId);
                     connection.Open();
-                    object result = command.ExecuteScalar();
-                    if (result != null)
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        QuestionText.Text = result.ToString();
-                    }
-                    else
-                    {
-                        // Question not found
-                        Response.Redirect("~/Pages/QnA/QnA.aspx");
+                        if (reader.Read())
+                        {
+                            QuestionText.Text = reader["QuestionText"].ToString();
+                            string imagePath = reader["ImagePath"] as string;
+                            if (!string.IsNullOrEmpty(imagePath))
+                            {
+                                QuestionImage.ImageUrl = ResolveUrl(imagePath);
+                                QuestionImage.Visible = true;
+                            }
+                            else
+                            {
+                                QuestionImage.Visible = false;
+                            }
+                        }
+                        else
+                        {
+                            // Question not found
+                            Response.Redirect("~/Pages/QnA/QnA.aspx");
+                        }
                     }
                 }
             }

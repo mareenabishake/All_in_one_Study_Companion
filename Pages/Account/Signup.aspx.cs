@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using All_in_one_Study_Companion.Helpers;
+using All_in_one_Study_Companion.Classes;
 using System.Data.SqlClient;
 
 namespace All_in_one_Study_Companion.Pages.Account
