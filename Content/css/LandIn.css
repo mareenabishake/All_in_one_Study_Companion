@@ -48,7 +48,7 @@ header {
                 .top-container, .bottom-container {
                     width: 98%;
                     margin: 0.5%;
-                    background: rgb(240, 204, 204);
+                    background: rgb(255, 255, 255);
                     padding: 0.5%;
                     border-radius: 10px;
                     box-shadow: 0 4px 8px rgba(233, 6, 6, 0.1);
@@ -311,7 +311,7 @@ form {
 }
 
 footer {
-    background: rgba(244, 244, 244, 0.6);
+    background: rgba(255, 255, 255, 0.6);
     padding: 10px 0;
     font-size: 0.8em;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);

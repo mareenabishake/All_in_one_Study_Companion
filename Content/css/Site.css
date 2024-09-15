@@ -8,7 +8,7 @@
 }
 
 header {
-    background-color: #f5b4b4;
+    background-color: #070836;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -24,7 +24,7 @@ header .container {
 .container {
     width: 98%;
     margin: 0.5%;
-    background: rgb(240, 204, 204);
+    background: rgb(236, 237, 240);
     padding: 0.5%;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(233, 6, 6, 0.1);
@@ -63,7 +63,7 @@ nav ul li a {
 }
 
 footer {
-    background-color: #f5b4b4;
+    background-color: #070836;
     padding: 10px 0;
     font-size: 0.8em;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);

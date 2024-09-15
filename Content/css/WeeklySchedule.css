@@ -120,7 +120,7 @@ td {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #4caf50; /* Green color for booked slots */
+    background-color: #15b5ca; /* Green color for booked slots */
     opacity: 0.7;
     display: flex;
     justify-content: center;
