@@ -5,17 +5,20 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <!-- Link to the CSS file for styling -->
     <link href="/Content/css/Answers.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="answer-question-container">
+        <!-- Display the question -->
         <div class="question-container">
             <h2>Question:</h2>
             <asp:Label ID="QuestionText" runat="server" CssClass="question-text"></asp:Label>
             <asp:Image ID="QuestionImage" runat="server" CssClass="question-image" />
         </div>
 
+        <!-- Form for submitting an answer -->
         <div class="answer-container">
             <h3>Your Answer:</h3>
             <asp:TextBox ID="AnswerText" runat="server" TextMode="MultiLine"></asp:TextBox>

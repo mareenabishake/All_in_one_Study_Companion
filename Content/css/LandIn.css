@@ -8,7 +8,7 @@
     flex-direction: column;
 }
 header {
-    background: rgba(244, 244, 244, 0.6);
+    background: rgba(244, 244, 244, 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -61,7 +61,7 @@ header {
 
 
 #hero {
-    background: rgba(244, 244, 244, 0.7);
+    background: rgba(244, 244, 244, 0.4);
     padding: 20px;
     text-align: center;
     height: 100vh;
@@ -152,7 +152,7 @@ form {
     }
 
     .signup-text a {
-        color: #007BFF;
+        color: #e0ffe8;
         text-decoration: none;
     }
 
@@ -186,7 +186,7 @@ form {
 
 #features {
     padding: 60px 20px; /* Increase padding for better spacing */
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.3);
 }
 
     #features .container {
@@ -247,7 +247,7 @@ form {
 
 #how-it-works {
     padding: 40px 20px;
-    background: rgba(244, 244, 244, 0.6);
+    background: rgba(244, 244, 244, 0.4);
 }
 
     #how-it-works .container {
@@ -288,7 +288,7 @@ form {
 
 #testimonials {
     padding: 40px 20px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.5);
 }
 
     #testimonials .container {
@@ -311,7 +311,7 @@ form {
 }
 
 footer {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.3);
     padding: 10px 0;
     font-size: 0.8em;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);

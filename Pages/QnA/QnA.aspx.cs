@@ -16,6 +16,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
         {
             if (!IsPostBack)
             {
+                // Check if user is logged in
                 if (Session["UserID"] != null)
                 {
                     int userId = Convert.ToInt32(Session["UserID"]);
@@ -25,6 +26,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
                 }
                 else
                 {
+                    // Redirect to login page if not logged in
                     Response.Redirect("~/Pages/Account/LandIn.aspx");
                 }
                 LoadQuestions();
@@ -218,6 +220,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
 
         protected void SubmitQuestion_Click(object sender, EventArgs e)
         {
+            // Check if user is logged in
             if (Session["UserID"] == null)
             {
                 Response.Redirect("~/Pages/Account/LandIn.aspx");
@@ -230,6 +233,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
             string imagePath = null;
             string userAcademicLevel = academicLevel.Text;
 
+            // Handle image upload
             if (imageUpload.HasFile)
             {
                 string fileName = Path.GetFileName(imageUpload.FileName);
@@ -247,8 +251,10 @@ namespace All_in_one_Study_Companion.Pages.QnA
                 imagePath = $"~/Uploads/QuestionImages/{uniqueFileName}";
             }
 
+            // Save question to database
             SaveQuestionToDatabase(userId, selectedSubject, questionText, imagePath, userAcademicLevel);
 
+            // Clear form and show success message
             ClearForm();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Your question has been submitted successfully!');", true);
         }

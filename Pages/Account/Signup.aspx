@@ -6,12 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - All in One Study Companion</title>
+    <!-- Link to the CSS file for styling -->
     <link href="../../Content/css/Signup.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- Header section -->
     <header>
         <div class="container">
             <div class="logo">Study Companion</div>
+            <!-- Navigation menu -->
             <nav>
                 <ul>
                     <li><a href="#hero">Home</a></li>
@@ -23,13 +26,16 @@
         </div>
     </header>
 
+    <!-- Sign up form container -->
     <div class="signup-container">
         <h1>Sign Up</h1>
         <form id="form1" runat="server">
+            <!-- Full Name input -->
             <div class="form-group">
                 <asp:Label runat="server" AssociatedControlID="txtFullName">Full Name</asp:Label>
                 <asp:TextBox ID="txtFullName" runat="server" required="required"></asp:TextBox>
             </div>
+            <!-- Institution and Academic Level inputs -->
             <div class="form-row">
                 <div class="form-group half-width">
                     <asp:Label runat="server" AssociatedControlID="txtInstitution">Institution</asp:Label>
@@ -47,6 +53,7 @@
                     </asp:DropDownList>
                 </div>
             </div>
+            <!-- Username and Email inputs -->
             <div class="form-row">
                 <div class="form-group half-width">
                     <asp:Label runat="server" AssociatedControlID="txtUsername">Username</asp:Label>
@@ -57,6 +64,7 @@
                     <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" required="required"></asp:TextBox>
                 </div>
             </div>
+            <!-- Password and Confirm Password inputs -->
             <div class="form-row">
                 <div class="form-group half-width">
                     <asp:Label runat="server" AssociatedControlID="txtPassword">Password</asp:Label>
@@ -67,11 +75,14 @@
                     <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" required="required" OnTextChanged="txtConfirmPassword_TextChanged"></asp:TextBox>
                 </div>
             </div>
+            <!-- Sign Up button -->
             <asp:Button ID="signUpbtn" runat="server" Text="Sign Up" CssClass="btn" OnClick="btnSignUp_Click" />
+            <!-- Link to login page -->
             <p>Already have an account? <a href="/index">Log In</a></p>
         </form>
     </div>
     
+    <!-- Footer section -->
     <footer>
         <div class="container">
             <p>&copy; 2024 All in One Study Companion. All rights reserved.</p>

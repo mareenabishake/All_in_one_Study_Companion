@@ -6,31 +6,50 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
+using All_in_one_Study_Companion.Classes; // Make sure this namespace is correct
+using System.Threading.Tasks;
 
 namespace All_in_one_Study_Companion.Pages
 {
     public partial class WeeklySchedule : System.Web.UI.Page
     {
-        private List<TimeSlot> timeSlots = new List<TimeSlot>();
+        private StudyPlannerAPI studyPlanner;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["UserID"] != null)
             {
-                PopulateDropDownLists();
+                string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
+                studyPlanner = new StudyPlannerAPI(connectionString);
+
+                if (!IsPostBack)
+                {
+                    // Generate the weekly calendar
+                    GenerateWeeklyCalendar();
+                    // Populate dropdown lists on initial page load
+                    PopulateDropDownLists();
+                }
             }
-            GenerateWeeklyCalendar();
+            else
+            {
+                // Redirect to login page if not logged in
+                Response.Redirect("~/Pages/Account/LandIn.aspx");
+            }
+
         }
 
+        // Method to populate day and time dropdown lists
         private void PopulateDropDownLists()
         {
             DateTime today = DateTime.Today;
+            // Populate day dropdown for the next 7 days
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = today.AddDays(i);
                 DayDropDownList.Items.Add(new ListItem(day.ToString("ddd MM/dd"), day.ToString("yyyy-MM-dd")));
             }
 
+            // Populate time dropdowns from 4 AM to 11 PM
             for (int i = 4; i < 24; i++)
             {
                 string time = $"{i % 24:D2}:00";
@@ -39,20 +58,25 @@ namespace All_in_one_Study_Companion.Pages
             }
         }
 
-        protected void AddTimeSlotButton_Click(object sender, EventArgs e)
+        // Event handler for adding a new time slot
+        protected async void AddTimeSlotButton_Click(object sender, EventArgs e)
         {
             DateTime selectedDate = DateTime.ParseExact(DayDropDownList.SelectedValue, "yyyy-MM-dd", null);
             DateTime startTime = selectedDate.Add(TimeSpan.Parse(StartTimeDropDownList.SelectedValue));
             DateTime endTime = selectedDate.Add(TimeSpan.Parse(EndTimeDropDownList.SelectedValue));
+            int userId = Convert.ToInt32(Session["UserID"]);
 
-            int userId = GetUserIdFromSession();
+            // Insert the new time slot into the database
+            await InsertTimeSlot(userId, selectedDate, startTime, endTime);
 
-            InsertTimeSlot(userId, selectedDate, startTime, endTime);
+            // Get study recommendations and update time slots
+            await UpdateStudyRecommendations(userId);
 
+            // Regenerate the weekly calendar to reflect changes
             GenerateWeeklyCalendar();
         }
 
-        private void InsertTimeSlot(int userId, DateTime slotDate, DateTime startTime, DateTime endTime)
+        private async Task InsertTimeSlot(int userId, DateTime slotDate, DateTime startTime, DateTime endTime)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -69,8 +93,8 @@ namespace All_in_one_Study_Companion.Pages
 
                     try
                     {
-                        connection.Open();
-                        int result = command.ExecuteNonQuery();
+                        await connection.OpenAsync();
+                        int result = await command.ExecuteNonQueryAsync();
                         if (result < 0)
                         {
                             // Handle the error, perhaps show a message to the user
@@ -86,54 +110,34 @@ namespace All_in_one_Study_Companion.Pages
             }
         }
 
-        private int GetUserIdFromSession()
+        private async Task UpdateStudyRecommendations(int userId)
         {
-            // Implement this method to retrieve the UserID from the session
-            // For example:
-            // return Convert.ToInt32(Session["UserID"]);
-            return 1; // Placeholder, replace with actual implementation
-        }
-
-        private void GenerateWeeklyCalendar()
-        {
-            DateTime today = DateTime.Today;
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<div class='weekly-schedule-section'>");
-            sb.Append("<h1>Weekly Schedule</h1>");
-            sb.Append("<div class='table-container'>");
-            sb.Append("<table class='weekly-schedule'>");
-            sb.Append("<tr><th class='time-header'>Time</th>");
-
-            for (int day = 0; day < 7; day++)
+            try
             {
-                DateTime currentDay = today.AddDays(day);
-                string dayClass = day == 0 ? "current-day" : "";
-                sb.Append($"<th class='day-header {dayClass}'>{currentDay.ToString("ddd MM/dd")}</th>");
-            }
-            sb.Append("</tr>");
+                string recommendations = await studyPlanner.GetStudyRecommendations(userId);
+                
+                // Log the recommendations received from the LLM
+                System.Diagnostics.Debug.WriteLine($"Recommendations received from LLM: {recommendations}");
 
-            for (int hour = 4; hour < 24; hour++)
-            {
-                sb.Append("<tr>");
-                sb.Append($"<td class='time-cell'>{hour % 24:D2}:00</td>");
-
-                for (int day = 0; day < 7; day++)
+                if (string.IsNullOrEmpty(recommendations))
                 {
-                    DateTime currentDay = today.AddDays(day);
-                    string cellContent = GetTimeSlotsForDateAndTime(currentDay, hour % 24);
-                    sb.Append($"<td class='time-slot-cell'>{cellContent}</td>");
+                    throw new Exception("Received empty recommendations from StudyPlanner.");
                 }
 
-                sb.Append("</tr>");
+                await studyPlanner.AssignSubjectsToTimeSlots(recommendations);
             }
-
-            sb.Append("</table>");
-            sb.Append("</div>");
-            sb.Append("</div>");
-
-            WeeklyCalendarLiteral.Text = sb.ToString();
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception in UpdateStudyRecommendations: {ex}");
+                string errorMessage = ex.InnerException != null ? 
+                    $"{ex.Message} Inner Exception: {ex.InnerException.Message}" : 
+                    ex.Message;
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", 
+                    $"alert('Failed to update study recommendations. Error: {errorMessage}');", true);
+            }
         }
+
+        // Existing GenerateWeeklyCalendar method remains unchanged
 
         private string GetTimeSlotsForDateAndTime(DateTime date, int hour)
         {
@@ -142,7 +146,7 @@ namespace All_in_one_Study_Companion.Pages
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"SELECT UserId, SlotDate, StartTime, EndTime, SubjectName 
+                string query = @"SELECT SlotID, UserID, SlotDate, StartTime, EndTime, SubjectName 
                                  FROM TimeSlots 
                                  WHERE SlotDate = @SlotDate 
                                  AND DATEPART(HOUR, StartTime) <= @Hour 
@@ -162,7 +166,8 @@ namespace All_in_one_Study_Companion.Pages
                             {
                                 timeSlots.Add(new TimeSlot
                                 {
-                                    UserId = (int)reader["UserId"],
+                                    SlotID = (int)reader["SlotID"],
+                                    UserID = (int)reader["UserID"],
                                     SlotDate = (DateTime)reader["SlotDate"],
                                     StartTime = (DateTime)reader["StartTime"],
                                     EndTime = (DateTime)reader["EndTime"],
@@ -173,7 +178,6 @@ namespace All_in_one_Study_Companion.Pages
                     }
                     catch (Exception ex)
                     {
-                        // Log the exception
                         return $"Error: {ex.Message}";
                     }
                 }
@@ -181,26 +185,50 @@ namespace All_in_one_Study_Companion.Pages
 
             if (timeSlots.Any())
             {
-                var slot = timeSlots.First(); // Assuming we're only displaying one slot per cell
-                if (!string.IsNullOrEmpty(slot.SubjectName))
+                StringBuilder slotHtml = new StringBuilder();
+                foreach (var slot in timeSlots)
                 {
-                    return $"<div class='booked-slot'><span class='subject-name'>{slot.SubjectName}</span></div>";
+                    string subjectName = !string.IsNullOrEmpty(slot.SubjectName) ? slot.SubjectName : "Free";
+                    slotHtml.Append($"<div class='booked-slot'><span class='subject-name'>{subjectName}</span></div>");
                 }
-                else
-                {
-                    return "<div class='booked-slot'></div>";
-                }
+                return slotHtml.ToString();
             }
-            return "&nbsp;";
+            return "<div class='booked-slot'><span class='subject-name'>Free</span></div>";
         }
-    }
 
-    public class TimeSlot
-    {
-        public int UserId { get; set; }
-        public DateTime SlotDate { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public string SubjectName { get; set; }
+        private void GenerateWeeklyCalendar()
+        {
+            StringBuilder calendarHtml = new StringBuilder();
+            DateTime startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+
+            calendarHtml.Append("<table class='weekly-schedule'>");
+            calendarHtml.Append("<tr><th class='time-header'>Time</th>");
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = startOfWeek.AddDays(i);
+                calendarHtml.Append($"<th class='day-header'>{day.ToString("ddd MM/dd")}</th>");
+            }
+            calendarHtml.Append("</tr>");
+
+            for (int hour = 4; hour < 24; hour++)
+            {
+                calendarHtml.Append("<tr>");
+                calendarHtml.Append($"<td class='time-cell'>{hour:D2}:00</td>");
+
+                for (int i = 0; i < 7; i++)
+                {
+                    DateTime day = startOfWeek.AddDays(i);
+                    string cellContent = GetTimeSlotsForDateAndTime(day, hour);
+                    calendarHtml.Append($"<td class='event-cell'>{cellContent}</td>");
+                }
+
+                calendarHtml.Append("</tr>");
+            }
+
+            calendarHtml.Append("</table>");
+
+            WeeklyCalendarLiteral.Text = calendarHtml.ToString();
+        }
     }
 }

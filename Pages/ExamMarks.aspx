@@ -17,15 +17,15 @@
         <h3>Enter Subject and Marks</h3>
         <div class="form-group">
             <label for="SubjectName">Subject Name:</label>
-            <asp:TextBox ID="SubjectName" runat="server" CssClass="form-control" OnTextChanged="SubjectName_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="SubjectName" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
         <div class="form-group">
             <label for="CurrentMark">Current Mark:</label>
-            <asp:TextBox ID="CurrentMark" runat="server" CssClass="form-control" TextMode="Number" OnTextChanged="CurrentMark_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="CurrentMark" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
         </div>
         <div class="form-group">
             <label for="TargetMark">Target Mark:</label>
-            <asp:TextBox ID="TargetMark" runat="server" CssClass="form-control" TextMode="Number" OnTextChanged="TargetMark_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="TargetMark" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
         </div>
         <asp:Button ID="SaveMarks" runat="server" Text="Save Marks" OnClick="SaveMarks_Click" CssClass="btn btn-primary mt-3" />
     </div>

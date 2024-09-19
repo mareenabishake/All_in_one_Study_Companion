@@ -7,33 +7,41 @@
     background-size: cover;
 }
 
-main {
-    padding: 120px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-}
-
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
 }
 
-.weekly-schedule-section {
-    width: 100%;
-    margin-bottom: 40px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.input-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.table-container {
-    width: 100%;
-    overflow-x: auto;
+.input-section select,
+.input-section button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.input-section select {
+    background-color: #fff;
+    color: #333;
+}
+
+.input-section button {
+    background-color: #15b5ca;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-section button:hover {
+    background-color: #1095a8;
 }
 
 table {
@@ -68,15 +76,6 @@ td {
 }
 
 /* Style for events */
-.event {
-    background-color: #4caf50;
-    color: white;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 0.9em;
-    margin-bottom: 2px;
-    display: inline-block;
-}
 
 .weekly-schedule {
     width: 100%;
@@ -90,6 +89,7 @@ td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    height: 60px; /* Set a fixed height for cells */
 }
 
 .time-header,
@@ -105,23 +105,12 @@ td {
 
 .event-cell {
     vertical-align: top;
-    height: 60px; /* Adjust as needed */
-}
-
-.time-slot-cell {
-    position: relative;
-    height: 60px;
-    min-width: 100px;
 }
 
 .booked-slot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #15b5ca; /* Green color for booked slots */
+    background-color: #15b5ca;
     opacity: 0.7;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,16 +130,41 @@ td {
 }
 
 @media (max-width: 768px) {
-    main {
-        padding: 80px 10px;
+    .input-section {
+        flex-direction: column;
     }
 
-    .weekly-schedule-section {
-        padding: 15px;
+    .input-section select,
+    .input-section button {
+        width: 100%;
     }
 
     th, td {
         padding: 8px;
         font-size: 0.9em;
     }
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-right: 5px;
+    padding: 20px;
+}
+
+.input-container, .calendar-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
 }

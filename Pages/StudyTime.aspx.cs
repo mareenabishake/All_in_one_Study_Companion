@@ -14,6 +14,7 @@ namespace All_in_one_Study_Companion.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Check if user is logged in
             if (Session["UserID"] == null)
             {
                 Response.Redirect("~/Pages/Account/LandIn.aspx");
@@ -22,7 +23,9 @@ namespace All_in_one_Study_Companion.Pages
             {
                 if (!IsPostBack)
                 {
+                    // Get user ID from session
                     int userId = Convert.ToInt32(Session["UserID"]);
+                    // Get user subjects and serialize to JSON for client-side use
                     List<string> subjects = GetUserSubjects(userId);
                     string subjectsJson = new JavaScriptSerializer().Serialize(subjects);
                     ClientScript.RegisterStartupScript(this.GetType(), "subjectsArray", $"var userSubjects = {subjectsJson};", true);
@@ -30,6 +33,7 @@ namespace All_in_one_Study_Companion.Pages
             }
         }
 
+        // Method to get user subjects from the database
         private List<string> GetUserSubjects(int userId)
         {
             List<string> subjects = new List<string>();
@@ -62,6 +66,7 @@ namespace All_in_one_Study_Companion.Pages
             return subjects;
         }
 
+        // Web method to save study record
         [WebMethod]
         public static bool SaveStudyRecord(string subject, double duration)
         {

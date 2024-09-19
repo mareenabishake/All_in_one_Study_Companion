@@ -275,6 +275,7 @@
   <ItemGroup>
     <Compile Include="Classes\DbHelper.cs" />
     <Compile Include="Classes\LLM.cs" />
+    <Compile Include="Classes\StudyPlannerAPI.cs" />
     <Compile Include="MasterPages\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

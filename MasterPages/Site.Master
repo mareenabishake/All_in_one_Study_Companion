@@ -1,10 +1,13 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="All_in_one_Study_Companion.MasterPages.Site" %>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
+    <%-- Title placeholder for individual pages --%>
     <title><asp:ContentPlaceHolder ID="Title" runat="server"></asp:ContentPlaceHolder></title>
+    <%-- Link to the main CSS file --%>
     <link href="/Content/css/Site.css" rel="stylesheet" type="text/css" />
+    <%-- Placeholder for additional head content from individual pages --%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -12,7 +15,9 @@
     <!-- Header Section -->
     <header>
         <div class="container">
+            <%-- Site logo --%>
             <div class="logo">Study Companion</div>
+            <%-- Main navigation menu --%>
             <nav>
                 <ul>
                     <li><a href="/Pages/Dashboard.aspx">Home</a></li>
@@ -30,7 +35,9 @@
 
     <!-- Main Content Section -->
     <main class="main-content">
+        <%-- Form that wraps the main content --%>
         <form id="form1" runat="server">
+            <%-- Placeholder for main content from individual pages --%>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </form>
@@ -39,7 +46,9 @@
     <!-- Footer Section -->
     <footer>
         <div class="container">
+            <%-- Copyright information --%>
             <p>&copy; 2024 All in One Study Companion. All rights reserved.</p>
+            <%-- Footer navigation --%>
             <nav class="footer-nav">
                 <a href="#contact">Contact</a> |
                 <a href="#privacy">Privacy</a> |

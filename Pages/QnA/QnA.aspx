@@ -5,10 +5,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <!-- Link to the CSS file for styling -->
     <link href="/Content/css/QnA.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    <!-- Ask a Question section -->
     <div class="qa-container">
         <h2>Ask a Question</h2>
         <div class="form-row">
@@ -32,8 +34,10 @@
         <asp:Button ID="submitQuestion" runat="server" Text="Submit Question" OnClick="SubmitQuestion_Click" CssClass="btn btn-primary" />
     </div>
 
+    <!-- View Questions section -->
     <div class="view-questions">
         <h2>Questions & Answers</h2>
+        <!-- Filters for questions -->
         <div class="filters">
             <div class="form-row">
                 <div>
@@ -64,5 +68,6 @@
         </div>
     </div>
 
+    <!-- Link to JavaScript file for client-side functionality -->
     <script src="/Content/js/QnA.js"></script>
 </asp:Content>

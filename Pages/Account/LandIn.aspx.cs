@@ -10,19 +10,23 @@ namespace All_in_one_Study_Companion.Pages.Account
 {
     public partial class LandIn : Page
     {
+        // Page load event handler
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Redirect to Dashboard if user is already logged in
             if (Session["UserID"] != null)
             {
                 Response.Redirect("~/Pages/Dashboard.aspx");
             }
         }
 
+        // Login button click event handler
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             string username = Username.Text;
             string password = Password.Text;
 
+            // Validate user credentials
             int userId = ValidateUser(username, password);
             if (userId > 0)
             {
@@ -38,6 +42,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
+        // Method to validate user credentials
         private int ValidateUser(string username, string password)
         {
             string hashedPassword = HashPassword(password);
@@ -66,6 +71,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
+        // Method to hash the password
         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -75,6 +81,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
+        // Method to show a message box
         private void ShowMessageBox(string message)
         {
             string script = $"alert('{message.Replace("'", "\\'")}');";

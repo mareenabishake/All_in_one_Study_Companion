@@ -11,15 +11,15 @@ namespace All_in_one_Study_Companion.Pages.Account
 {
     public partial class Signup : System.Web.UI.Page
     {
+        // Database helper instance
         private DbHelper dbHelper = new DbHelper();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Page load event handler (currently empty)
         }
 
-
-        // Add this method to the class
+        // Method to hash the user's password
         private string HashPassword(string password)
         {
             using (var sha256 = System.Security.Cryptography.SHA256.Create())
@@ -29,16 +29,16 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
-        // Add this method to the class
+        // Method to display a message box to the user
         private void ShowMessageBox(string message)
         {
             string script = $"alert('{message.Replace("'", "\\'")}');";
             ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
         }
 
+        // Event handler for the Sign Up button click
         protected void btnSignUp_Click(object sender, EventArgs e)
         {
-            
             // Get user input from form fields
             string fullName = txtFullName.Text;
             string institution = txtInstitution.Text;
@@ -48,7 +48,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
 
-            // Perform validation
+            // Perform password validation
             if (password != confirmPassword)
             {
                 ShowMessageBox("Passwords do not match");
@@ -58,7 +58,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             // Hash the password
             string hashedPassword = HashPassword(password);
 
-            // Insert user into database
+            // Prepare SQL query for user insertion
             string query = @"INSERT INTO Users (FullName, Institution, AcademicLevel, Username, Email, PasswordHash) 
                              VALUES (@FullName, @Institution, @AcademicLevel, @Username, @Email, @PasswordHash)";
             SqlParameter[] parameters = new SqlParameter[]
@@ -73,6 +73,7 @@ namespace All_in_one_Study_Companion.Pages.Account
 
             try
             {
+                // Execute the query
                 int rowsAffected = dbHelper.ExecuteNonQuery(query, parameters);
                 if (rowsAffected > 0)
                 {
@@ -93,6 +94,7 @@ namespace All_in_one_Study_Companion.Pages.Account
             }
         }
 
+        // Event handler for the Confirm Password text changed event (currently empty)
         protected void txtConfirmPassword_TextChanged(object sender, EventArgs e)
         {
 

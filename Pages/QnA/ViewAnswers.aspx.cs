@@ -15,12 +15,15 @@ namespace All_in_one_Study_Companion.Pages.QnA
         {
             if (!IsPostBack)
             {
+                // Check if a question ID is provided in the query string
                 if (Request.QueryString["id"] != null && int.TryParse(Request.QueryString["id"], out int questionId))
                 {
+                    // Load the question and its answers
                     LoadQuestionAndAnswers(questionId);
                 }
                 else
                 {
+                    // Redirect to the Q&A page if no valid question ID is provided
                     Response.Redirect("~/Pages/QnA/QnA.aspx");
                 }
             }
@@ -45,6 +48,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
                     }
                     else
                     {
+                        // Redirect to the Q&A page if the question is not found
                         Response.Redirect("~/Pages/QnA/QnA.aspx");
                     }
                 }
@@ -62,6 +66,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
                     command.Parameters.AddWithValue("@QuestionID", questionId);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
+                        // Bind the answers to the Repeater control
                         AnswersRepeater.DataSource = reader;
                         AnswersRepeater.DataBind();
                     }

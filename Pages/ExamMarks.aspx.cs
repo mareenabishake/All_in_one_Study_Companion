@@ -14,10 +14,12 @@ namespace All_in_one_Study_Companion.Pages
         {
             if (!IsPostBack)
             {
+                // Load exam marks on initial page load
                 LoadExamMarks();
             }
         }
 
+        // Method to load exam marks from the database
         private void LoadExamMarks()
         {
             try
@@ -41,12 +43,14 @@ namespace All_in_one_Study_Companion.Pages
 
                     if (dt.Rows.Count > 0)
                     {
+                        // Bind exam marks to the GridView
                         ExamMarksGridView.DataSource = dt;
                         ExamMarksGridView.DataBind();
                         NoDataLabel.Visible = false;
                     }
                     else
                     {
+                        // Display message if no exam marks are available
                         ExamMarksGridView.DataSource = null;
                         ExamMarksGridView.DataBind();
                         NoDataLabel.Text = "No exam marks available.";
@@ -60,6 +64,7 @@ namespace All_in_one_Study_Companion.Pages
             }
         }
 
+        // Event handler for save marks button click
         protected void SaveMarks_Click(object sender, EventArgs e)
         {
             try
@@ -104,11 +109,13 @@ namespace All_in_one_Study_Companion.Pages
             }
         }
 
+        // Method to get connection string from web.config
         private string GetConnectionString()
         {
             return ConfigurationManager.ConnectionStrings["StudyCompanionDB"]?.ConnectionString;
         }
 
+        // Method to get user ID from session
         private int GetUserIdFromSession()
         {
             if (Session["UserID"] == null)
@@ -118,25 +125,12 @@ namespace All_in_one_Study_Companion.Pages
             return Convert.ToInt32(Session["UserID"]);
         }
 
+        // Method to show message to the user
         private void ShowMessage(string message)
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "ShowMessage", 
                 $"alert('{message.Replace("'", "\\'")}')", true);
         }
 
-        protected void SubjectName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void CurrentMark_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void TargetMark_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

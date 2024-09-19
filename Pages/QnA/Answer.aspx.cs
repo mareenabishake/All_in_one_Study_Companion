@@ -12,6 +12,7 @@ namespace All_in_one_Study_Companion.Pages.QnA
         {
             if (!IsPostBack)
             {
+                // Check if a question ID is provided in the query string
                 if (Request.QueryString["id"] != null)
                 {
                     if (int.TryParse(Request.QueryString["id"], out int questionId))
