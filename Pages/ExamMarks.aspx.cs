@@ -25,10 +25,6 @@ namespace All_in_one_Study_Companion.Pages
             try
             {
                 string connectionString = GetConnectionString();
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    throw new ConfigurationErrorsException("Connection string 'DefaultConnection' not found in web.config");
-                }
 
                 int userId = GetUserIdFromSession();
 
@@ -75,10 +71,6 @@ namespace All_in_one_Study_Companion.Pages
                 int userId = GetUserIdFromSession();
 
                 string connectionString = GetConnectionString();
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    throw new ConfigurationErrorsException("Connection string 'DefaultConnection' not found in web.config");
-                }
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {

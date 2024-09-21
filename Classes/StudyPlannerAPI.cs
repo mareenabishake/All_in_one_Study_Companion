@@ -22,15 +22,13 @@ namespace All_in_one_Study_Companion.Classes
 
             try
             {
-                studyData.PastRecords = await FetchPastRecords(userId);
+                studyData.pastRecords = await FetchPastRecords(userId);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error fetching past records: {ex.Message}");
-                studyData.PastRecords = new List<StudyTimeRecord>(); // Fallback to empty list
+                studyData.pastRecords = new List<StudyTimeRecord>(); // Fallback to empty list
             }
-
-            System.Diagnostics.Debug.WriteLine($"Fetched {studyData.PastRecords.Count} past records for user {userId}.");
 
             try
             {
@@ -44,7 +42,10 @@ namespace All_in_one_Study_Companion.Classes
 
             try
             {
-                studyData.AvailableStudyTime = await FetchAvailableStudyTime(userId);
+                // Fetch only future available study time slots
+                studyData.AvailableStudyTime = (await FetchAvailableStudyTime(userId))
+                    .Where(t => t.StartTime > DateTime.Now) // Filter for future slots
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -66,7 +67,7 @@ namespace All_in_one_Study_Companion.Classes
         {
             return new StudyData
             {
-                PastRecords = await FetchPastRecords(userId),
+                pastRecords = await FetchPastRecords(userId),
                 ExamMarks = await FetchExamMarks(userId),
                 AvailableStudyTime = await FetchAvailableStudyTime(userId)
             };
@@ -74,10 +75,10 @@ namespace All_in_one_Study_Companion.Classes
 
         private string PrepareQueryForLLM(StudyData data)
         {
-            var formattedPastRecords = data.PastRecords.Select(r => new
+            var formattedPastRecords = data.pastRecords.Select(r => new
             {
-                Subject = r.SubjectName,
-                TotalHours = r.Time
+                SubjectName = r.SubjectName,
+                TotalTime = r.TotalTime
             }).ToList(); // Ensure this is a list
 
             var formattedExamMarks = data.ExamMarks.Select(m => new
@@ -124,7 +125,7 @@ Ensure that:
 - Subjects are distributed based on their need for improvement and current study time.
 - The output is valid JSON that can be directly parsed and used to update the TimeSlots table.
 
-Do not include any explanations or additional text in your response. Provide only the JSON output as specified above.";
+Do not include any explanations or additional text in your response. Your response should only include the JSON output as specified above.";
         }
 
         private async Task<List<StudyTimeRecord>> FetchPastRecords(int userId)
@@ -134,25 +135,34 @@ Do not include any explanations or additional text in your response. Provide onl
             {
                 await connection.OpenAsync();
                 string query = @"
-                    SELECT UserID, SubjectName, SUM(Time) as TotalTime
+                    SELECT SubjectName, CAST(SUM(Time) AS INT) AS TotalTime
                     FROM StudyTimeRecords
                     WHERE UserID = @UserID
-                    GROUP BY UserID, SubjectName";
+                    GROUP BY SubjectName";
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UserID", userId);
+                    command.Parameters.AddWithValue("@UserID", userId); // Set the parameter
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
-                            pastRecords.Add(new StudyTimeRecord
+                            try
                             {
-                                UserID = reader.GetInt32(0),
-                                SubjectName = reader.GetString(1),
-                                Time = reader.GetFloat(2) // This will be the total time for each subject
-                            });
+
+                                pastRecords.Add(new StudyTimeRecord
+                                {
+                                    SubjectName = reader.GetString(0),
+                                    TotalTime = reader.GetInt32(1),
+                                });
+                            }
+                            catch (InvalidCastException ex)
+                            {
+                                Console.WriteLine(pastRecords);
+                                System.Diagnostics.Debug.WriteLine($"InvalidCastException: {ex.Message}");
+                                System.Diagnostics.Debug.WriteLine($"Data read - SubjectName: {reader[0]}, TotalTime: {reader[1]}");
+                            }
                         }
                     }
                 }
@@ -226,28 +236,7 @@ Do not include any explanations or additional text in your response. Provide onl
             }
             return studySlots;
         }
-        public async Task AssignSubjectsToTimeSlots(string llmResponse)
-        {
-            var assignments = JsonConvert.DeserializeObject<List<TimeSlotAssignment>>(llmResponse);
-    
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                foreach (var assignment in assignments)
-                {
-                    string query = @"
-                        UPDATE TimeSlots
-                        SET SubjectName = @SubjectName
-                        WHERE SlotID = @SlotID";
-                    using (var command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@SubjectName", assignment.SubjectName);
-                        command.Parameters.AddWithValue("@SlotID", assignment.SlotID);
-                        await command.ExecuteNonQueryAsync();
-                    }
-                }
-            }
-        }
+        
     }
 
     public class TimeSlotAssignment
@@ -259,17 +248,15 @@ Do not include any explanations or additional text in your response. Provide onl
     // Data models
     public class StudyData
     {
-        public List<StudyTimeRecord> PastRecords { get; set; }
+        public List<StudyTimeRecord> pastRecords { get; set; }
         public List<ExamMark> ExamMarks { get; set; }
         public List<TimeSlot> AvailableStudyTime { get; set; }
     }
 
     public class StudyTimeRecord
     {
-        public int RecordID { get; set; }
-        public int UserID { get; set; }
         public string SubjectName { get; set; }
-        public float Time { get; set; }
+        public float TotalTime { get; set; }
     }
 
     public class ExamMark

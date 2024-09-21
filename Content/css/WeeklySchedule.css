@@ -110,10 +110,12 @@ td {
 .booked-slot {
     background-color: #15b5ca;
     opacity: 0.7;
-    height: 100%;
+    height: 100%; /* Ensure it takes full height of the cell */
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Prevent overflow */
+    border-radius: 4px; /* Optional: add border radius for better appearance */
 }
 
 .subject-name {
@@ -123,9 +125,7 @@ td {
     padding: 2px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 3px;
-    max-width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 100%;
     white-space: nowrap;
 }
 
@@ -148,20 +148,25 @@ td {
 .schedule-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-right: 5px;
+    max-width: 1200px; /* Set a maximum width */
+    margin: 0 auto; /* Center the container horizontally */
     padding: 20px;
+    min-height: 100vh; /* Ensure the container takes the full height of the viewport */
 }
 
-.input-container, .calendar-container {
+.input-container, 
+.calendar-container {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    width: 100%;
+    margin-bottom: 20px; /* Add spacing between the containers */
 }
+
 
 h2 {
     font-size: 20px;

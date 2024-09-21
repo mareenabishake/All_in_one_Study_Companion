@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using All_in_one_Study_Companion.Classes; // Make sure this namespace is correct
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace All_in_one_Study_Companion.Pages
 {
@@ -28,6 +29,7 @@ namespace All_in_one_Study_Companion.Pages
                     GenerateWeeklyCalendar();
                     // Populate dropdown lists on initial page load
                     PopulateDropDownLists();
+
                 }
             }
             else
@@ -38,11 +40,46 @@ namespace All_in_one_Study_Companion.Pages
 
         }
 
+        private void GenerateWeeklyCalendar()
+        {
+            StringBuilder calendarHtml = new StringBuilder();
+            DateTime startOfWeek = DateTime.Today; // Start from today
+
+            calendarHtml.Append("<table class='weekly-schedule'>");
+            calendarHtml.Append("<tr><th class='time-header'>Time</th>");
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime day = startOfWeek.AddDays(i);
+                calendarHtml.Append($"<th class='day-header'>{day.ToString("ddd MM/dd")}</th>");
+            }
+            calendarHtml.Append("</tr>");
+
+            for (int hour = 4; hour < 24; hour++)
+            {
+                calendarHtml.Append("<tr>");
+                calendarHtml.Append($"<td class='time-cell'>{hour:D2}:00</td>");
+
+                for (int i = 0; i < 7; i++)
+                {
+                    DateTime day = startOfWeek.AddDays(i);
+                    string cellContent = GetTimeSlotsForDateAndTime(day, hour);
+                    calendarHtml.Append($"<td class='event-cell'>{cellContent}</td>");
+                }
+
+                calendarHtml.Append("</tr>");
+            }
+
+            calendarHtml.Append("</table>");
+
+            WeeklyCalendarLiteral.Text = calendarHtml.ToString();
+        }
+
         // Method to populate day and time dropdown lists
         private void PopulateDropDownLists()
         {
             DateTime today = DateTime.Today;
-            // Populate day dropdown for the next 7 days
+            // Populate day dropdown for the current day and the next 6 days
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = today.AddDays(i);
@@ -64,13 +101,13 @@ namespace All_in_one_Study_Companion.Pages
             DateTime selectedDate = DateTime.ParseExact(DayDropDownList.SelectedValue, "yyyy-MM-dd", null);
             DateTime startTime = selectedDate.Add(TimeSpan.Parse(StartTimeDropDownList.SelectedValue));
             DateTime endTime = selectedDate.Add(TimeSpan.Parse(EndTimeDropDownList.SelectedValue));
-            int userId = Convert.ToInt32(Session["UserID"]);
+            int userId = Convert.ToInt32(Session["UserID"]); // Use session UserID
 
             // Insert the new time slot into the database
             await InsertTimeSlot(userId, selectedDate, startTime, endTime);
 
             // Get study recommendations and update time slots
-            await UpdateStudyRecommendations(userId);
+            await UpdateStudyRecommendations();
 
             // Regenerate the weekly calendar to reflect changes
             GenerateWeeklyCalendar();
@@ -110,21 +147,27 @@ namespace All_in_one_Study_Companion.Pages
             }
         }
 
-        private async Task UpdateStudyRecommendations(int userId)
+        private async Task UpdateStudyRecommendations()
         {
+            int userId = Convert.ToInt32(Session["UserID"]); // Use session UserID
             try
             {
-                string recommendations = await studyPlanner.GetStudyRecommendations(userId);
-                
+                // Fetch recommendations without UserID
+                string recommendations = await studyPlanner.GetStudyRecommendations(userId); // Pass userId if needed
+
                 // Log the recommendations received from the LLM
                 System.Diagnostics.Debug.WriteLine($"Recommendations received from LLM: {recommendations}");
+
 
                 if (string.IsNullOrEmpty(recommendations))
                 {
                     throw new Exception("Received empty recommendations from StudyPlanner.");
                 }
+                else
+                {
+                    await AssignSubjectsToTimeSlots(recommendations);
+                }
 
-                await studyPlanner.AssignSubjectsToTimeSlots(recommendations);
             }
             catch (Exception ex)
             {
@@ -136,6 +179,31 @@ namespace All_in_one_Study_Companion.Pages
                     $"alert('Failed to update study recommendations. Error: {errorMessage}');", true);
             }
         }
+        public async Task AssignSubjectsToTimeSlots(string llmResponse)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
+
+            var assignments = JsonConvert.DeserializeObject<List<TimeSlotAssignment>>(llmResponse);
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                foreach (var assignment in assignments)
+                {
+                    string query = @"
+                        UPDATE TimeSlots
+                        SET SubjectName = @SubjectName
+                        WHERE SlotID = @SlotID"; // Removed UserID condition
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@SubjectName", assignment.SubjectName);
+                        command.Parameters.AddWithValue("@SlotID", assignment.SlotID);
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+            }
+        }
 
         // Existing GenerateWeeklyCalendar method remains unchanged
 
@@ -143,19 +211,19 @@ namespace All_in_one_Study_Companion.Pages
         {
             string connectionString = ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
             List<TimeSlot> timeSlots = new List<TimeSlot>();
+            int userId = Convert.ToInt32(Session["UserID"]); // Get the current user's ID
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"SELECT SlotID, UserID, SlotDate, StartTime, EndTime, SubjectName 
                                  FROM TimeSlots 
                                  WHERE SlotDate = @SlotDate 
-                                 AND DATEPART(HOUR, StartTime) <= @Hour 
-                                 AND DATEPART(HOUR, EndTime) > @Hour";
+                                 AND UserID = @UserId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@SlotDate", date.Date);
-                    command.Parameters.AddWithValue("@Hour", hour);
+                    command.Parameters.AddWithValue("@UserId", userId); // Add UserID parameter
 
                     try
                     {
@@ -183,52 +251,36 @@ namespace All_in_one_Study_Companion.Pages
                 }
             }
 
-            if (timeSlots.Any())
+            // Create an array to hold the subject names for each hour
+            string[] hourSubjects = new string[24]; // Assuming 24 hours in a day
+
+            // Populate the hourSubjects array with the subject names
+            foreach (var slot in timeSlots)
             {
-                StringBuilder slotHtml = new StringBuilder();
-                foreach (var slot in timeSlots)
+                int startHour = slot.StartTime.Hour;
+                int endHour = slot.EndTime.Hour;
+
+                for (int i = startHour; i < endHour; i++)
                 {
-                    string subjectName = !string.IsNullOrEmpty(slot.SubjectName) ? slot.SubjectName : "Free";
-                    slotHtml.Append($"<div class='booked-slot'><span class='subject-name'>{subjectName}</span></div>");
+                    hourSubjects[i] = slot.SubjectName; // Assign the subject name to each hour
                 }
-                return slotHtml.ToString();
             }
-            return "<div class='booked-slot'><span class='subject-name'>Free</span></div>";
+
+            // Build the HTML for the time slots
+            StringBuilder slotHtml = new StringBuilder();
+            if (hourSubjects[hour] != null)
+            {
+                string subjectName = hourSubjects[hour];
+                slotHtml.Append($"<div class='booked-slot'><span class='subject-name'>{subjectName}</span></div>");
+            }
+            else
+            {
+                slotHtml.Append("<div class='free-slot'></div>");
+            }
+
+            return slotHtml.ToString();
         }
 
-        private void GenerateWeeklyCalendar()
-        {
-            StringBuilder calendarHtml = new StringBuilder();
-            DateTime startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
-
-            calendarHtml.Append("<table class='weekly-schedule'>");
-            calendarHtml.Append("<tr><th class='time-header'>Time</th>");
-
-            for (int i = 0; i < 7; i++)
-            {
-                DateTime day = startOfWeek.AddDays(i);
-                calendarHtml.Append($"<th class='day-header'>{day.ToString("ddd MM/dd")}</th>");
-            }
-            calendarHtml.Append("</tr>");
-
-            for (int hour = 4; hour < 24; hour++)
-            {
-                calendarHtml.Append("<tr>");
-                calendarHtml.Append($"<td class='time-cell'>{hour:D2}:00</td>");
-
-                for (int i = 0; i < 7; i++)
-                {
-                    DateTime day = startOfWeek.AddDays(i);
-                    string cellContent = GetTimeSlotsForDateAndTime(day, hour);
-                    calendarHtml.Append($"<td class='event-cell'>{cellContent}</td>");
-                }
-
-                calendarHtml.Append("</tr>");
-            }
-
-            calendarHtml.Append("</table>");
-
-            WeeklyCalendarLiteral.Text = calendarHtml.ToString();
-        }
+        
     }
 }

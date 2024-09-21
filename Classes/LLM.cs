@@ -49,7 +49,7 @@ namespace All_in_one_Study_Companion.Classes
             // Prepare request body
             var requestBody = new
             {
-                model = "mixtral-8x7b-32768",
+                model = "llama-3.1-70b-versatile",
                 messages = messages
             };
 

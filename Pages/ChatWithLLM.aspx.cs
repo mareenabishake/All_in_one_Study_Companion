@@ -32,8 +32,8 @@ namespace All_in_one_Study_Companion.Pages
                 {
                     // Query Groq AI and add response to chat history
                     string groqResponse = await LLM.QueryGroqAsync(userMessage);
-                    LLM.AddMessageToHistory("Groq AI", groqResponse);
-                    AddMessageToChat("Groq AI", groqResponse);
+                    LLM.AddMessageToHistory("Llama 3.1", groqResponse);
+                    AddMessageToChat("Llama 3.1", groqResponse);
                 }
                 catch (Exception ex)
                 {
