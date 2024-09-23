@@ -30,7 +30,7 @@
                         <th>Points</th>
                         <th>Questions Answered</th>
                         <th>Hours Studied</th>
-                        <th>Badge</th>
+                        <th>Badges</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,9 @@
                                 <td><%# Eval("Points") %></td>
                                 <td><%# Eval("QuestionsAnswered") %></td>
                                 <td><%# Eval("HoursStudied") %></td>
-                                <td><img src='<%# Eval("BadgeIMG") %>' alt="Badge" class="badge-icon" /></td>
+                                <td>
+                                    <%# GetBadgeImages(Eval("BadgeIDs")) %>
+                                </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>

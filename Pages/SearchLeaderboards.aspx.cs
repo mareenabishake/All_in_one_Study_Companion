@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace All_in_one_Study_Companion.Pages
 {
@@ -24,10 +25,14 @@ namespace All_in_one_Study_Companion.Pages
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["StudyCompanionDB"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT u.UserID, u.Username, l.Points, l.BadgeIMG, l.QuestionsAnswered, l.HoursStudied
+                string query = @"SELECT u.UserID, u.Username, u.Points, 
+                                        STRING_AGG(ba.BadgeID, ',') AS BadgeIDs, 
+                                        u.QuestionsAnswered, u.HoursStudied
                                  FROM Users u
-                                 JOIN Leaderboard l ON u.UserID = l.UserID
-                                 ORDER BY l.Points DESC";
+                                 LEFT JOIN BadgesAssigned ba ON u.UserID = ba.UserID
+                                 LEFT JOIN Badges b ON ba.BadgeID = b.BadgeID
+                                 GROUP BY u.UserID, u.Username, u.Points, u.QuestionsAnswered, u.HoursStudied
+                                 ORDER BY u.Points DESC"; // Changed to join Users, BadgesAssigned, and Badges tables and aggregate BadgeIDs
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -54,10 +59,15 @@ namespace All_in_one_Study_Companion.Pages
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     string query = @"SELECT u.FullName, u.Institution, u.AcademicLevel, u.Email, 
-                                     l.Points, l.BadgeIMG, l.QuestionsAnswered, l.HoursStudied
+                                            u.Points, STRING_AGG(ba.BadgeID, ',') AS BadgeIDs, 
+                                            u.QuestionsAnswered, u.HoursStudied
                                      FROM Users u
-                                     JOIN Leaderboard l ON u.UserID = l.UserID
-                                     WHERE u.FullName LIKE @SearchTerm";
+                                     LEFT JOIN BadgesAssigned ba ON u.UserID = ba.UserID
+                                     LEFT JOIN Badges b ON ba.BadgeID = b.BadgeID
+                                     WHERE u.FullName LIKE @SearchTerm
+                                     GROUP BY u.FullName, u.Institution, u.AcademicLevel, u.Email, 
+                                              u.Points, u.QuestionsAnswered, u.HoursStudied
+                                     ORDER BY u.Points DESC"; // Changed to join Users, BadgesAssigned, and Badges tables and aggregate BadgeIDs
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -72,7 +82,6 @@ namespace All_in_one_Study_Companion.Pages
                             sb.Append("<div class='user-profile'>");
                             sb.Append($"<div class='profile-header'>");
                             sb.Append($"<h3>{reader["FullName"]}</h3>");
-                            sb.Append($"<img src='{reader["BadgeIMG"]}' alt='Badge' class='badge-icon' />");
                             sb.Append("</div>");
                             sb.Append($"<p><strong>Institution:</strong> {reader["Institution"]}</p>");
                             sb.Append($"<p><strong>Academic Level:</strong> {reader["AcademicLevel"]}</p>");
@@ -82,6 +91,24 @@ namespace All_in_one_Study_Companion.Pages
                             sb.Append($"<div class='stat-item'><span class='stat-label'>Questions</span><span class='stat-value'>{reader["QuestionsAnswered"]}</span></div>");
                             sb.Append($"<div class='stat-item'><span class='stat-label'>Hours</span><span class='stat-value'>{reader["HoursStudied"]}</span></div>");
                             sb.Append("</div>");
+
+                            // Retrieve and display badges
+                            List<string> badgeIDs = new List<string>();
+                            if (!reader.IsDBNull(reader.GetOrdinal("BadgeIDs")))
+                            {
+                                badgeIDs.AddRange(reader["BadgeIDs"].ToString().Split(','));
+                            }
+
+                            if (badgeIDs.Count > 0)
+                            {
+                                sb.Append("<div class='badges'>");
+                                foreach (var badgeID in badgeIDs)
+                                {
+                                    sb.Append($"<img src='/images/badges/{badgeID}.png' alt='Badge {badgeID}' class='badge-icon' />");
+                                }
+                                sb.Append("</div>");
+                            }
+
                             sb.Append("</div>");
                         }
 
@@ -95,6 +122,23 @@ namespace All_in_one_Study_Companion.Pages
                 // Clear search results if search term is empty
                 searchResults.InnerHtml = "";
             }
+        }
+
+        // Method to generate badge images
+        protected string GetBadgeImages(object badgeIDs)
+        {
+            if (badgeIDs == null || string.IsNullOrEmpty(badgeIDs.ToString()))
+            {
+                return string.Empty;
+            }
+
+            var badgeIDList = badgeIDs.ToString().Split(',');
+            StringBuilder sb = new StringBuilder();
+            foreach (var badgeID in badgeIDList)
+            {
+                sb.Append($"<img src='/images/badges/{badgeID}.png' alt='Badge {badgeID}' class='badge-icon' />");
+            }
+            return sb.ToString();
         }
     }
 }
