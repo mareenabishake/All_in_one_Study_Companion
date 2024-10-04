@@ -41,7 +41,7 @@
                                 <td><%# Eval("Username") %></td>
                                 <td><%# Eval("Points") %></td>
                                 <td><%# Eval("QuestionsAnswered") %></td>
-                                <td><%# Eval("HoursStudied") %></td>
+                                <td><%# ConvertMinutesToHours(Eval("MinutesStudied")) %></td>
                                 <td>
                                     <%# GetBadgeImages(Eval("BadgeIDs")) %>
                                 </td>

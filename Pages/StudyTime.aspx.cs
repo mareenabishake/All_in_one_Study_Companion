@@ -81,13 +81,21 @@ namespace All_in_one_Study_Companion.Pages
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO StudyTimeRecords (UserID, SubjectName, Time) VALUES (@UserID, @SubjectName, @Time)";
+                string query = @"
+                    UPDATE Users 
+                    SET MinutesStudied = ISNULL(MinutesStudied, 0) + @Duration,
+                        Points = ISNULL(Points, 0) + @Duration
+                    WHERE UserID = @UserID;
+
+                    INSERT INTO StudyTimeRecords (UserID, SubjectName, Time) 
+                    VALUES (@UserID, @SubjectName, @Time)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@UserID", userId);
                     command.Parameters.AddWithValue("@SubjectName", subject);
                     command.Parameters.AddWithValue("@Time", duration);
+                    command.Parameters.AddWithValue("@Duration", (int)Math.Round(duration));
 
                     try
                     {

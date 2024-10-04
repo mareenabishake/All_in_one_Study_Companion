@@ -32,6 +32,7 @@ h2, h3 {
 
 .question-container, .answer-container {
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .form-group {
@@ -92,6 +93,15 @@ textarea {
     display: block;
     margin-top: 10px;
     color: #666;
+}
+
+.question-image {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 @media (max-width: 768px) {

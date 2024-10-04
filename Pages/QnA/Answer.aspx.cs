@@ -112,24 +112,42 @@ namespace All_in_one_Study_Companion.Pages.QnA
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"INSERT INTO Answers (QuestionID, AnswerText, ImagePath, UserID) 
-                                 VALUES (@QuestionID, @AnswerText, @ImagePath, @UserID)";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                connection.Open();
+                using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    command.Parameters.AddWithValue("@QuestionID", questionId);
-                    command.Parameters.AddWithValue("@AnswerText", string.IsNullOrEmpty(answerText) ? (object)DBNull.Value : answerText);
-                    command.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(imagePath) ? (object)DBNull.Value : imagePath);
-                    command.Parameters.AddWithValue("@UserID", userId);
-
                     try
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Your answer has been submitted successfully!');", true);
+                        // Insert the answer
+                        string insertQuery = @"INSERT INTO Answers (QuestionID, AnswerText, ImagePath, UserID) 
+                                               VALUES (@QuestionID, @AnswerText, @ImagePath, @UserID)";
+
+                        using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection, transaction))
+                        {
+                            insertCommand.Parameters.AddWithValue("@QuestionID", questionId);
+                            insertCommand.Parameters.AddWithValue("@AnswerText", string.IsNullOrEmpty(answerText) ? (object)DBNull.Value : answerText);
+                            insertCommand.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(imagePath) ? (object)DBNull.Value : imagePath);
+                            insertCommand.Parameters.AddWithValue("@UserID", userId);
+                            insertCommand.ExecuteNonQuery();
+                        }
+
+                        // Update the QuestionsAnswered column and increment Points by 10
+                        string updateQuery = @"UPDATE Users 
+                                               SET QuestionsAnswered = QuestionsAnswered + 1,
+                                                   Points = ISNULL(Points, 0) + 10
+                                               WHERE UserID = @UserID";
+
+                        using (SqlCommand updateCommand = new SqlCommand(updateQuery, connection, transaction))
+                        {
+                            updateCommand.Parameters.AddWithValue("@UserID", userId);
+                            updateCommand.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Your answer has been submitted successfully! You earned 10 points.');", true);
                     }
                     catch (Exception ex)
                     {
+                        transaction.Rollback();
                         // Log the exception
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('An error occurred while submitting your answer. Please try again.');", true);
                     }

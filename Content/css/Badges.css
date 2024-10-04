@@ -1,0 +1,140 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: url('../img/landinBg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.badges-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 32px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.badge-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.badge-item:hover {
+    transform: translateY(-5px);
+}
+
+.badge-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.badge-type {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.badge-description {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.badge-requirements {
+    font-size: 12px;
+    color: #777;
+}
+
+@media (max-width: 768px) {
+    .badges-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+.fetch-badges-button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.fetch-badges-button:hover {
+    background-color: #0056b3;
+}
+
+.claim-badges-button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.claim-badges-button:hover {
+    background-color: #45a049;
+}
+
+.claim-badges-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.badge-item.earned {
+    border: 2px solid #4CAF50;
+}
+
+.badge-item.not-earned {
+    border: 2px solid #ccc;
+    opacity: 0.7;
+}
+
+.badge-status {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.earned .badge-status {
+    color: #4CAF50;
+}
+
+.not-earned .badge-status {
+    color: #999;
+}

@@ -117,6 +117,7 @@
     <Content Include="bin\roslyn\vbc.exe" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
     <Content Include="Content\css\Answers.css" />
+    <Content Include="Content\css\Badges.css" />
     <Content Include="Content\css\ChatWithLLM.css" />
     <Content Include="Content\css\Dashboard.css" />
     <Content Include="Content\css\LandIn.css" />
@@ -256,6 +257,7 @@
     <Content Include="packages\Newtonsoft.Json.13.0.3\packageIcon.png" />
     <Content Include="Pages\Account\LandIn.aspx" />
     <Content Include="Pages\Account\Signup.aspx" />
+    <Content Include="Pages\Badges.aspx" />
     <Content Include="Pages\ChatWithLLM.aspx" />
     <Content Include="Pages\QnA\Answer.aspx" />
     <Content Include="Pages\Dashboard.aspx" />
@@ -298,6 +300,13 @@
     </Compile>
     <Compile Include="Pages\Account\Signup.aspx.designer.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Badges.aspx.cs">
+      <DependentUpon>Badges.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Badges.aspx.designer.cs">
+      <DependentUpon>Badges.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ChatWithLLM.aspx.cs">
       <DependentUpon>ChatWithLLM.aspx</DependentUpon>
