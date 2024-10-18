@@ -21,14 +21,14 @@
             <nav>
                 <ul>
                     <li><a href="/Pages/Dashboard.aspx">Home</a></li>
+                    <li><a href="/Pages/ExamMarks.aspx">Exam Marks</a></li>
                     <li><a href="/Pages/WeeklySchedule.aspx">Weekly Schedule</a></li>
                     <li><a href="/Pages/StudyTime.aspx">Study Time</a></li>
-                    <li><a href="/Pages/ExamMarks.aspx">Exam Marks</a></li>
                     <li><a href="/Pages/QnA/QnA.aspx">Q&A</a></li>
-                    <li><a href="/Pages/SearchLeaderboards.aspx">Search & Leaderboards</a></li>
-                    <li><a href="/Pages/ChatWithLLM.aspx">Chat with LLM</a></li>
-                    <li><a href="/Pages/Settings.aspx">Settings</a></li>
+                    <li><a href="/Pages/ChatWithLLM.aspx">Chat with a LLM</a></li>
                     <li><a href="/Pages/Badges.aspx">Badges</a></li>
+                    <li><a href="/Pages/SearchLeaderboards.aspx">Search & Leaderboards</a></li>
+                    <li><a href="/Pages/Settings.aspx">Settings</a></li>
                 </ul>
             </nav>
         </div>

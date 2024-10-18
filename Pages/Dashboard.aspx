@@ -17,6 +17,12 @@
         <main>
             <section class="dashboard-section">
                 <div class="dashboard-item">
+                    <a href="ExamMarks.aspx" class="dashboard-link">
+                        <img src="../Content/img/ExamMarks.jpg" alt="Exam Marks" />
+                        <span>Exam Marks</span>
+                    </a>
+                </div>
+                <div class="dashboard-item">
                     <a href="WeeklySchedule.aspx" class="dashboard-link">
                         <img src="../Content/img/weeklySchedule.jpeg" alt="Weekly Schedule" />
                         <span>Weekly Schedule</span>
@@ -29,15 +35,21 @@
                     </a>
                 </div>
                 <div class="dashboard-item">
-                    <a href="ExamMarks.aspx" class="dashboard-link">
-                        <img src="../Content/img/ExamMarks.jpg" alt="Exam Marks" />
-                        <span>Exam Marks</span>
-                    </a>
-                </div>
-                <div class="dashboard-item">
                     <a href="QnA/QnA.aspx" class="dashboard-link">
                         <img src="../Content/img/QnA.png" alt="Q&A" />
                         <span>Q&A</span>
+                    </a>
+                </div>
+                <div class="dashboard-item">
+                    <a href="ChatWithLLM.aspx" class="dashboard-link">
+                        <img src="../Content/img/llm.png" alt="Chat with LLM" />
+                        <span>Chat with a LLM</span>
+                    </a>
+                </div>
+                <div class="dashboard-item">
+                    <a href="Badges.aspx" class="dashboard-link">
+                        <img src="../Content/img/Badges.jpg" alt="Badges" />
+                        <span>Badges</span>
                     </a>
                 </div>
                 <div class="dashboard-item">
@@ -48,7 +60,7 @@
                 </div>
                 <div class="dashboard-item">
                     <a href="Settings.aspx" class="dashboard-link">
-                        <img src="../Content/img/settings.png" alt="Settings" />
+                        <img src="../Content/img/Settings.png" alt="Settings" />
                         <span>Settings</span>
                     </a>
                 </div>

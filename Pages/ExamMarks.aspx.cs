@@ -5,17 +5,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace All_in_one_Study_Companion.Pages
 {
     public partial class ExamMarks : System.Web.UI.Page
     {
+        protected string StudyTimeJsonData { get; private set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                // Load exam marks on initial page load
                 LoadExamMarks();
+                LoadStudyTimeData();
             }
         }
 
@@ -57,6 +60,44 @@ namespace All_in_one_Study_Companion.Pages
             catch (Exception ex)
             {
                 ShowMessage($"Error loading exam marks: {ex.Message}");
+            }
+        }
+
+        // Add this new method
+        private void LoadStudyTimeData()
+        {
+            try
+            {
+                string connectionString = GetConnectionString();
+                int userId = GetUserIdFromSession();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = @"
+                        SELECT SubjectName, SUM(Time) as TotalDuration
+                        FROM StudyTimeRecords
+                        WHERE UserID = @UserID
+                        GROUP BY SubjectName";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        StudyTimeJsonData = JsonConvert.SerializeObject(dt);
+                    }
+                    else
+                    {
+                        StudyTimeJsonData = "[]";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowMessage($"Error loading study time data: {ex.Message}");
             }
         }
 

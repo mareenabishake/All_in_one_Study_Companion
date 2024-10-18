@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="Exam Marks" Language="C#" MasterPageFile="~/MasterPages/Site.Master" AutoEventWireup="true" CodeBehind="ExamMarks.aspx.cs" Inherits="All_in_one_Study_Companion.Pages.ExamMarks" %>
 
 <asp:Content ID="TitleContent" ContentPlaceHolderID="Title" runat="server">
-    Exam Marks
 </asp:Content>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <!-- Add reference to custom CSS file -->
     <link rel="stylesheet" href="/Content/css/ExamMarks.css" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </asp:Content>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -45,20 +45,33 @@
     <!-- Charts Section -->
     <div class="charts-section mt-4">
         <h3>Study Progress</h3>
-        <div class="row">
-            <div class="col-md-6">
-                <canvas id="hoursStudiedChart"></canvas>
-            </div>
-            <div class="col-md-6">
-                <canvas id="hoursRemainingChart"></canvas>
-            </div>
-        </div>
+        <div id="studyTimePieChart" style="width: 900px; height: 500px;"></div>
     </div>
 
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Include your custom JavaScript file -->
-    <script src="~/Content/js/ExamMarks.js"></script>
+    <!-- Debug Data Literal -->
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var jsonData = <%= StudyTimeJsonData %>;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Subject');
+            data.addColumn('number', 'Total Duration');
+
+            jsonData.forEach(function(item) {
+                data.addRow([item.SubjectName, item.TotalDuration]);
+            });
+
+            var options = {
+                title: 'Total Study Time by Subject',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('studyTimePieChart'));
+            chart.draw(data, options);
+        }
+    </script>
 
     <!-- No Data Label -->
     <asp:Label ID="NoDataLabel" runat="server" Text="" Visible="false"></asp:Label>

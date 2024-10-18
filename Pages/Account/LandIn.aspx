@@ -44,7 +44,7 @@
             </form>
             <!-- Sign up link -->
             <div class="signup-text">
-                <span>Please <a href="/Signup">Sign up</a> if you don't have an account.</span>
+                <span>Please <a href="Signup.aspx">Sign up</a> if you don't have an account.</span>
                 <a href="Signup.aspx" class="btn signup-btn">Sign Up</a>
             </div>
         </div>

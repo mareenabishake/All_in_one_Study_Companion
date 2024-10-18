@@ -78,7 +78,7 @@
             <!-- Sign Up button -->
             <asp:Button ID="signUpbtn" runat="server" Text="Sign Up" CssClass="btn" OnClick="btnSignUp_Click" />
             <!-- Link to login page -->
-            <p>Already have an account? <a href="/index">Log In</a></p>
+            <p>Already have an account? <a href="../Account/LandIn.aspx">Log In</a></p>
         </form>
     </div>
     
