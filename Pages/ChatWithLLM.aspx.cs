@@ -4,6 +4,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Threading.Tasks;
 using All_in_one_Study_Companion.Classes; // Make sure this namespace is correct
+using System.Text.RegularExpressions;
 
 namespace All_in_one_Study_Companion.Pages
 {
@@ -58,7 +59,8 @@ namespace All_in_one_Study_Companion.Pages
         // Method to add a message to the chat UI
         private void AddMessageToChat(string sender, string message)
         {
-            chatHistory.InnerHtml += $"<div class='chat-message'><strong>{sender}:</strong> {message}</div>";
+            string formattedMessage = FormatMessage(message);
+            chatHistory.InnerHtml += $"<div class='chat-message'><strong>{sender}:</strong> {formattedMessage}</div>";
         }
 
         // Method to load chat history from session
@@ -70,6 +72,26 @@ namespace All_in_one_Study_Companion.Pages
             {
                 AddMessageToChat(message.Sender, message.Message);
             }
+        }
+
+        private string FormatMessage(string message)
+        {
+            // Replace "\n\n" with double line breaks
+            message = message.Replace("\\n\\n", "<br><br>");
+            
+            // Replace remaining "\n" with single line breaks
+            message = message.Replace("\\n", "<br>");
+
+            // Bold text between star signs
+            message = Regex.Replace(message, @"\*(.*?)\*", "<strong>$1</strong>");
+
+            // Format numbered lists
+            message = Regex.Replace(message, @"(\d+\.\s)", "<br><strong>$1</strong>");
+
+            // Add extra line break before "Llama 3.1:" if present
+            message = message.Replace("Llama 3.1:", "<br><strong>Llama 3.1:</strong>");
+
+            return message;
         }
     }
 }

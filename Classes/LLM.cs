@@ -73,7 +73,8 @@ namespace All_in_one_Study_Companion.Classes
 
                 // Deserialize and extract response
                 var responseObject = JsonConvert.DeserializeObject<dynamic>(responseContent);
-                return responseObject.choices[0].message.content.ToString();
+                string formattedResponse = responseObject.choices[0].message.content.ToString();
+                return formattedResponse.Replace("\n", "\\n"); // Preserve newline characters
             }
             catch (HttpRequestException e)
             {

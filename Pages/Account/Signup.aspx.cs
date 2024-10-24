@@ -59,8 +59,8 @@ namespace All_in_one_Study_Companion.Pages.Account
             string hashedPassword = HashPassword(password);
 
             // Prepare SQL query for user insertion
-            string query = @"INSERT INTO Users (FullName, Institution, AcademicLevel, Username, Email, PasswordHash) 
-                             VALUES (@FullName, @Institution, @AcademicLevel, @Username, @Email, @PasswordHash)";
+            string query = @"INSERT INTO Users (FullName, Institution, AcademicLevel, Username, Email, PasswordHash, MinutesStudied, QuestionsAnswered, Points) 
+                             VALUES (@FullName, @Institution, @AcademicLevel, @Username, @Email, @PasswordHash, 0, 0, 0)";
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@FullName", fullName),
